@@ -4,7 +4,7 @@ const Footer = () => {
       <div className="container mx-auto max-w-6xl">
         <div className="text-center text-muted-foreground">
           <p className="mb-2">
-            Designed & Built by <span className="text-primary font-semibold">John Doe</span>
+            Diseñado por <span className="text-primary font-semibold">Isaias Burga</span>
           </p>
           <p className="text-sm">
             © {new Date().getFullYear()} All rights reserved.

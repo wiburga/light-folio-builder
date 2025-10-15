@@ -7,26 +7,26 @@ const Contact = () => {
     {
       name: "Email",
       icon: Mail,
-      url: "mailto:john.doe@example.com",
-      label: "john.doe@example.com"
+      url: "mailto:isaias.burga99@gmail.com",
+      label: "isaias.burga99@gmail.com"
+    },
+    {
+      name: "Teléfono",
+      icon: Mail,
+      url: "tel:+593962923294",
+      label: "0962923294"
     },
     {
       name: "LinkedIn",
       icon: Linkedin,
-      url: "https://linkedin.com/in/johndoe",
-      label: "/in/johndoe"
+      url: "https://linkedin.com/in/isaiasburga",
+      label: "/in/isaiasburga"
     },
     {
       name: "GitHub",
       icon: Github,
-      url: "https://github.com/johndoe",
-      label: "@johndoe"
-    },
-    {
-      name: "Twitter",
-      icon: Twitter,
-      url: "https://twitter.com/johndoe",
-      label: "@johndoe"
+      url: "https://github.com/isaiasburga",
+      label: "@isaiasburga"
     }
   ];
 
@@ -37,7 +37,7 @@ const Contact = () => {
           Let's Connect
         </h2>
         <p className="text-center text-muted-foreground text-lg mb-12 max-w-2xl mx-auto">
-          I'm always interested in hearing about new projects and opportunities. Whether you have a question or just want to say hi, feel free to reach out!
+          Siempre estoy interesado en conocer nuevos proyectos y oportunidades de aprendizaje. Si tienes alguna pregunta o simplemente quieres saludar, ¡no dudes en contactarme!
         </p>
         
         <div className="grid sm:grid-cols-2 gap-6 mb-12">
@@ -73,9 +73,9 @@ const Contact = () => {
             className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-[var(--shadow-glow)] transition-[var(--transition-smooth)]"
             asChild
           >
-            <a href="mailto:john.doe@example.com">
+            <a href="mailto:isaias.burga99@gmail.com">
               <Mail className="w-5 h-5 mr-2" />
-              Send Me an Email
+              Envíame un Email
             </a>
           </Button>
         </div>

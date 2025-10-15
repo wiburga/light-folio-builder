@@ -12,13 +12,13 @@ const About = () => {
             <Card className="p-8 bg-card border-border shadow-[var(--shadow-card)]">
               <div className="space-y-4 text-muted-foreground">
                 <p className="text-lg leading-relaxed">
-                  Hi! I'm a passionate developer with a love for creating elegant solutions to complex problems. With years of experience in full-stack development, I specialize in building modern web applications that are both beautiful and functional.
+                  ¡Hola! Soy Isaias Burga, estudiante de la Universidad de las Fuerzas Armadas ESPE. Estoy comenzando mi camino como desarrollador, con mucha pasión por aprender y crear soluciones tecnológicas.
                 </p>
                 <p className="text-lg leading-relaxed">
-                  My journey in tech started with a curiosity about how things work, and it has evolved into a career where I get to bring ideas to life through code. I'm constantly learning and adapting to new technologies to stay at the forefront of web development.
+                  Mi viaje en la tecnología está recién comenzando, y cada día es una oportunidad para aprender algo nuevo. Me enfoco en desarrollar mis habilidades en desarrollo web y programación.
                 </p>
                 <p className="text-lg leading-relaxed">
-                  When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or sharing knowledge with the developer community.
+                  Cuando no estoy estudiando o programando, me encanta explorar nuevas tecnologías y estar al día con las últimas tendencias en desarrollo.
                 </p>
               </div>
             </Card>
@@ -26,23 +26,23 @@ const About = () => {
           
           <div className="animate-slide-up" style={{ animationDelay: "0.2s" }}>
             <Card className="p-8 bg-gradient-card border-border shadow-[var(--shadow-card)]">
-              <h3 className="text-2xl font-semibold mb-6 text-primary">Quick Facts</h3>
+              <h3 className="text-2xl font-semibold mb-6 text-primary">Datos Rápidos</h3>
               <ul className="space-y-4">
                 <li className="flex items-start gap-3">
                   <span className="text-primary text-xl">▹</span>
-                  <span className="text-muted-foreground">5+ years of professional experience</span>
+                  <span className="text-muted-foreground">Estudiante de la Universidad de las Fuerzas Armadas ESPE</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-primary text-xl">▹</span>
-                  <span className="text-muted-foreground">Specialized in React, TypeScript, and Node.js</span>
+                  <span className="text-muted-foreground">Desarrollador Junior recién comenzando</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-primary text-xl">▹</span>
-                  <span className="text-muted-foreground">Strong focus on user experience and accessibility</span>
+                  <span className="text-muted-foreground">Aprendiendo React, TypeScript y desarrollo web moderno</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-primary text-xl">▹</span>
-                  <span className="text-muted-foreground">Active contributor to open-source projects</span>
+                  <span className="text-muted-foreground">Motivado por aprender y crecer profesionalmente</span>
                 </li>
               </ul>
             </Card>

@@ -20,13 +20,13 @@ const Hero = () => {
       <div className="container mx-auto px-4 z-10">
         <div className="max-w-4xl mx-auto text-center animate-fade-in">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            John Doe
+            Isaias Burga
           </h1>
           <p className="text-2xl md:text-3xl text-muted-foreground mb-8">
-            Full Stack Developer & UI/UX Enthusiast
+            Desarrollador Junior & Estudiante ESPE
           </p>
           <p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto">
-            Creating beautiful, functional, and user-friendly digital experiences with modern technologies and creative problem-solving.
+            Estudiante de la Universidad de las Fuerzas Armadas ESPE, apasionado por la tecnología y el desarrollo web. Comenzando mi camino en el mundo de la programación.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Button 
