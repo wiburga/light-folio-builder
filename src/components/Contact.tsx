@@ -19,7 +19,7 @@ const Contact = () => {
     {
       name: "LinkedIn",
       icon: Linkedin,
-      url: "www.linkedin.com/in/isaias-burga-ba8170189",
+      url: "https://www.linkedin.com/in/isaias-burga-ba8170189",
       label: "/in/isaiasburga"
     },
     {
