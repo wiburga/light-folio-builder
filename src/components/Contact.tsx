@@ -19,14 +19,14 @@ const Contact = () => {
     {
       name: "LinkedIn",
       icon: Linkedin,
-      url: "https://linkedin.com/in/isaiasburga",
+      url: "www.linkedin.com/in/isaias-burga-ba8170189",
       label: "/in/isaiasburga"
     },
     {
       name: "GitHub",
       icon: Github,
-      url: "https://github.com/isaiasburga",
-      label: "@isaiasburga"
+      url: "https://github.com/wiburga",
+      label: "@wiburga"
     }
   ];
 
