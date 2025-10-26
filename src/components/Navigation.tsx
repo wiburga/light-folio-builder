@@ -21,12 +21,12 @@ const Navigation = () => {
   };
 
   const navItems = [
-    { label: "Home", id: "home" },
-    { label: "About", id: "about" },
-    { label: "Skills", id: "skills" },
-    { label: "Experience", id: "experience" },
-    { label: "Projects", id: "projects" },
-    { label: "Contact", id: "contact" },
+    { label: "Inicio", id: "home" },
+    { label: "Sobre Mí", id: "about" },
+    { label: "Habilidades", id: "skills" },
+    { label: "Experiencia", id: "experience" },
+    { label: "Proyectos", id: "projects" },
+    { label: "Contacto", id: "contact" },
   ];
 
   return (
@@ -43,7 +43,7 @@ const Navigation = () => {
             onClick={() => scrollToSection("home")}
             className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent hover:opacity-80 transition-opacity"
           >
-            JD
+            IB
           </button>
 
           {/* Desktop Navigation */}

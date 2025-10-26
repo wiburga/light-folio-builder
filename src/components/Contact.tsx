@@ -34,7 +34,7 @@ const Contact = () => {
     <section id="contact" className="py-20 px-4">
       <div className="container mx-auto max-w-4xl">
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-6 animate-fade-in">
-          Let's Connect
+          Conectemos
         </h2>
         <p className="text-center text-muted-foreground text-lg mb-12 max-w-2xl mx-auto">
           Siempre estoy interesado en conocer nuevos proyectos y oportunidades de aprendizaje. Si tienes alguna pregunta o simplemente quieres saludar, ¡no dudes en contactarme!

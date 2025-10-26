@@ -12,7 +12,7 @@ const Skills = () => {
       skills: ["Node.js", "Express", "PostgreSQL", "MongoDB", "REST APIs", "GraphQL"],
     },
     {
-      title: "Tools & Others",
+      title: "Herramientas y Otros",
       skills: ["Git", "Docker", "AWS", "Figma", "CI/CD", "Agile/Scrum"],
     },
   ];
@@ -21,7 +21,7 @@ const Skills = () => {
     <section id="skills" className="py-20 px-4 bg-secondary/30">
       <div className="container mx-auto max-w-5xl">
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 animate-fade-in">
-          Skills & Technologies
+          Habilidades y Tecnologías
         </h2>
         <div className="grid md:grid-cols-3 gap-8">
           {skillCategories.map((category, index) => (

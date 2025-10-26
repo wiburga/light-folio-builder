@@ -34,7 +34,7 @@ const Hero = () => {
               className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-[var(--shadow-glow)] transition-[var(--transition-smooth)]"
               onClick={() => scrollToSection("projects")}
             >
-              View My Work
+              Ver Mi Trabajo
             </Button>
             <Button 
               size="lg" 
@@ -42,7 +42,7 @@ const Hero = () => {
               className="border-primary text-foreground hover:bg-primary/10"
               onClick={() => scrollToSection("contact")}
             >
-              Get In Touch
+              Contáctame
             </Button>
           </div>
         </div>

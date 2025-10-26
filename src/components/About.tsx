@@ -5,7 +5,7 @@ const About = () => {
     <section id="about" className="py-20 px-4">
       <div className="container mx-auto max-w-5xl">
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 animate-fade-in">
-          About Me
+          Sobre Mí
         </h2>
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="animate-slide-up">

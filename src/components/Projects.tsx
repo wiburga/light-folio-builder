@@ -38,7 +38,7 @@ const Projects = () => {
     <section id="projects" className="py-20 px-4 bg-secondary/30">
       <div className="container mx-auto max-w-6xl">
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 animate-fade-in">
-          Featured Projects
+          Proyectos Destacados
         </h2>
         <div className="grid md:grid-cols-2 gap-8">
           {projects.map((project, index) => (
@@ -73,7 +73,7 @@ const Projects = () => {
                   >
                     <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
                       <ExternalLink className="w-4 h-4 mr-2" />
-                      Live Demo
+                      Ver Demo
                     </a>
                   </Button>
                   <Button
@@ -84,7 +84,7 @@ const Projects = () => {
                   >
                     <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
                       <Github className="w-4 h-4 mr-2" />
-                      Code
+                      Código
                     </a>
                   </Button>
                 </div>
