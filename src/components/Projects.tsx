@@ -11,7 +11,7 @@ const Projects = () => {
         "Dashboard interactivo con gráficos en tiempo real y filtros personalizables.",
       technologies: ["React", "TypeScript", "Tailwind", "Recharts"],
       demoUrl: "https://vision-kpi-tool-demo.vercel.app",
-      repoUrl: "https://github.com/isaiasburga/vision-kpi-tool",
+      repoUrl: "https://github.com/wiburga/vision-kpi-tool",
     },
     {
       title: "E-Commerce Web",
@@ -19,7 +19,7 @@ const Projects = () => {
         "Tienda virtual moderna con carrito de compras y gestión de productos.",
       technologies: ["React", "TypeScript", "Supabase", "shadcn/ui"],
       demoUrl: "https://techstore-demo.vercel.app",
-      repoUrl: "https://github.com/isaiasburga/techstore",
+      repoUrl: "https://github.com/wiburga/techstore",
     },
     {
       title: "Sistema de Citas",
@@ -27,7 +27,7 @@ const Projects = () => {
         "Gestión de citas médicas con autenticación y panel administrativo.",
       technologies: ["React", "TypeScript", "Tailwind CSS"],
       demoUrl: "https://patient-appointments-pro.vercel.app",
-      repoUrl: "https://github.com/isaiasburga/appointments",
+      repoUrl: "https://github.com/wiburga/appointments",
     },
   ];
 
