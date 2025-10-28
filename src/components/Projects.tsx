@@ -10,7 +10,7 @@ const Projects = () => {
       description:
         "Dashboard interactivo con gráficos en tiempo real y filtros personalizables.",
       technologies: ["React", "TypeScript", "Tailwind", "Recharts"],
-      demoUrl: "https://vision-kpi-tool-demo.vercel.app",
+      demoUrl: "https://preview--vision-kpi-tool.lovable.app/",
       repoUrl: "https://github.com/wiburga/vision-kpi-tool",
     },
     {
