@@ -18,16 +18,16 @@ const Projects = () => {
       description:
         "Tienda virtual moderna con carrito de compras y gestión de productos.",
       technologies: ["React", "TypeScript", "Supabase", "shadcn/ui"],
-      demoUrl: "https://techstore-demo.vercel.app",
-      repoUrl: "https://github.com/wiburga/techstore",
+      demoUrl: "https://preview--mern-commerce.lovable.app",
+      repoUrl: "https://github.com/wiburga/mern-commerce",
     },
     {
       title: "Sistema de Citas",
       description:
         "Gestión de citas médicas con autenticación y panel administrativo.",
       technologies: ["React", "TypeScript", "Tailwind CSS"],
-      demoUrl: "https://patient-appointments-pro.vercel.app",
-      repoUrl: "https://github.com/wiburga/appointments",
+      demoUrl: "https://preview--patient-appointments-pro.lovable.app/auth",
+      repoUrl: "https://github.com/wiburga/patient-appointments-pro",
     },
   ];
 
