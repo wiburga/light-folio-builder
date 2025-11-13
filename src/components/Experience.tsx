@@ -1,4 +1,5 @@
 import { Card } from "@/components/ui/card";
+import Section3DWrapper from "@/components/Section3DWrapper";
 
 const Experience = () => {
   const experiences = [
@@ -18,7 +19,7 @@ const Experience = () => {
   ];
 
   return (
-    <section id="experience" className="py-20 px-4">
+    <Section3DWrapper id="experience" className="py-20 px-4" direction="up" delay={0.2}>
       <div className="container mx-auto max-w-4xl">
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 animate-fade-in">
           Experiencia
@@ -68,7 +69,7 @@ const Experience = () => {
           </div>
         </div>
       </div>
-    </section>
+    </Section3DWrapper>
   );
 };
 

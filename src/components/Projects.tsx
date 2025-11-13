@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Github } from "lucide-react";
 import { motion } from "framer-motion";
+import Section3DWrapper from "@/components/Section3DWrapper";
 
 const Projects = () => {
   const projects = [
@@ -32,9 +33,11 @@ const Projects = () => {
   ];
 
   return (
-    <section
+    <Section3DWrapper
       id="projects"
       className="py-20 px-4 scroll-mt-20"
+      direction="right"
+      delay={0.15}
     >
       <div className="container mx-auto max-w-6xl">
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
@@ -108,7 +111,7 @@ const Projects = () => {
           ))}
         </div>
       </div>
-    </section>
+    </Section3DWrapper>
   );
 };
 

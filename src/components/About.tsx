@@ -1,8 +1,9 @@
 import { Card } from "@/components/ui/card";
+import Section3DWrapper from "@/components/Section3DWrapper";
 
 const About = () => {
   return (
-    <section id="about" className="py-20 px-4">
+    <Section3DWrapper id="about" className="py-20 px-4" direction="right">
       <div className="container mx-auto max-w-5xl">
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 animate-fade-in">
           Sobre Mí
@@ -49,7 +50,7 @@ const About = () => {
           </div>
         </div>
       </div>
-    </section>
+    </Section3DWrapper>
   );
 };
 

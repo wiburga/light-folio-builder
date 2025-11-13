@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import Section3DWrapper from "@/components/Section3DWrapper";
 
 const Skills = () => {
   const skillCategories = [
@@ -18,7 +19,7 @@ const Skills = () => {
   ];
 
   return (
-    <section id="skills" className="py-20 px-4 bg-secondary/30">
+    <Section3DWrapper id="skills" className="py-20 px-4 bg-secondary/30" direction="left" delay={0.1}>
       <div className="container mx-auto max-w-5xl">
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 animate-fade-in">
           Habilidades y Tecnologías
@@ -48,7 +49,7 @@ const Skills = () => {
           ))}
         </div>
       </div>
-    </section>
+    </Section3DWrapper>
   );
 };
 
