@@ -108,6 +108,14 @@ export default {
           "50%": {
             boxShadow: "0 0 40px hsla(220, 90%, 56%, 0.5)"
           }
+        },
+        "scan": {
+          "0%": {
+            transform: "translateY(-100%)"
+          },
+          "100%": {
+            transform: "translateY(100%)"
+          }
         }
       },
       animation: {
@@ -116,6 +124,7 @@ export default {
         "fade-in": "fade-in 0.6s ease-out",
         "slide-up": "slide-up 0.8s ease-out",
         "glow": "glow 3s ease-in-out infinite",
+        "scan": "scan 8s linear infinite",
       },
       backgroundImage: {
         "gradient-hero": "var(--gradient-hero)",
