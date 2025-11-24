@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ExternalLink, Github } from "lucide-react";
 import { motion } from "framer-motion";
 import Section3DWrapper from "@/components/Section3DWrapper";
+import SculptedProjectTitle from "@/components/3d/SculptedProjectTitle";
 
 const Projects = () => {
   const projects = [
@@ -13,6 +14,7 @@ const Projects = () => {
       technologies: ["React", "TypeScript", "Tailwind", "Recharts"],
       demoUrl: "https://preview--vision-kpi-tool.lovable.app/",
       repoUrl: "https://github.com/wiburga/vision-kpi-tool",
+      material: "glass" as const,
     },
     {
       title: "E-Commerce Web",
@@ -21,6 +23,7 @@ const Projects = () => {
       technologies: ["React", "TypeScript", "Supabase", "shadcn/ui"],
       demoUrl: "https://preview--mern-commerce.lovable.app",
       repoUrl: "https://github.com/wiburga/mern-commerce",
+      material: "metal" as const,
     },
     {
       title: "Sistema de Citas",
@@ -29,6 +32,7 @@ const Projects = () => {
       technologies: ["React", "TypeScript", "Tailwind CSS"],
       demoUrl: "https://preview--patient-appointments-pro.lovable.app/auth",
       repoUrl: "https://github.com/wiburga/patient-appointments-pro",
+      material: "concrete" as const,
     },
   ];
 
@@ -57,9 +61,13 @@ const Projects = () => {
               transition={{ delay: index * 0.1, duration: 0.4 }}
             >
               <Card className="h-full p-6 hover:shadow-lg transition-all hover:-translate-y-1 border-border/50">
-                <h3 className="text-xl font-bold mb-3 text-foreground">
-                  {project.title}
-                </h3>
+                {/* 3D Sculpted Title */}
+                <div className="mb-4 -mt-2">
+                  <SculptedProjectTitle 
+                    title={project.title} 
+                    material={project.material} 
+                  />
+                </div>
 
                 <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                   {project.description}
