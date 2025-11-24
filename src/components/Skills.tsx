@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import Section3DWrapper from "@/components/Section3DWrapper";
+import HolographicSkill from "@/components/3d/HolographicSkill";
 
 const Skills = () => {
   const skillCategories = [
@@ -24,6 +25,14 @@ const Skills = () => {
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 animate-fade-in">
           Habilidades y Tecnologías
         </h2>
+        
+        {/* Holographic Skills Showcase */}
+        <div className="mb-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+          {["React", "TypeScript", "Node.js", "PostgreSQL"].map((skill) => (
+            <HolographicSkill key={skill} skill={skill} />
+          ))}
+        </div>
+
         <div className="grid md:grid-cols-3 gap-8">
           {skillCategories.map((category, index) => (
             <Card
