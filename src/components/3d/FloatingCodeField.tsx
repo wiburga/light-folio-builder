@@ -25,11 +25,11 @@ const FloatingWord = ({ text, position, speed, size }: FloatingWordProps) => {
       ref={ref}
       position={position}
       fontSize={size}
-      color="#60a5fa"
+      color="hsl(221, 83%, 53%)"
       anchorX="center"
       anchorY="middle"
-      outlineWidth={0.02}
-      outlineColor="#1e40af"
+      outlineWidth={0.015}
+      outlineColor="hsl(221, 83%, 30%)"
     >
       {text}
     </Text>
@@ -60,8 +60,8 @@ const FloatingCodeFieldContent = () => {
 
   return (
     <>
-      <ambientLight intensity={0.3} />
-      <pointLight position={[10, 10, 10]} intensity={0.5} color="#60a5fa" />
+      <ambientLight intensity={0.2} />
+      <pointLight position={[10, 10, 10]} intensity={0.6} color="hsl(221, 83%, 53%)" />
       
       {words.map((word, i) => (
         <FloatingWord key={i} {...word} />
