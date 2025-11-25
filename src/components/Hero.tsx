@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { ArrowDown } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 import Scene3D from "@/components/Scene3D";
-import FloatingCodeField from "@/components/3d/FloatingCodeField";
 import MorphingLogo from "@/components/3d/MorphingLogo";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 
@@ -38,7 +37,6 @@ const Hero = () => {
     >
       {/* 3D Scene Background */}
       <Scene3D />
-      <FloatingCodeField />
       
       <div className="container mx-auto px-4 z-10 relative">
         {/* Morphing Logo */}
