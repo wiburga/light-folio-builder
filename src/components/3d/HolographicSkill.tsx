@@ -32,8 +32,8 @@ const HolographicSkillContent = ({ text, isHovered }: HolographicSkillContentPro
 
   return (
     <>
-      <ambientLight intensity={0.5} />
-      <pointLight position={[5, 5, 5]} intensity={1} color="#a78bfa" />
+      <ambientLight intensity={0.3} />
+      <pointLight position={[5, 5, 5]} intensity={1.2} color="hsl(221, 83%, 53%)" />
       
       <Center>
         <Text3D
@@ -45,13 +45,13 @@ const HolographicSkillContent = ({ text, isHovered }: HolographicSkillContentPro
         >
           {text}
           <meshStandardMaterial
-            color={isHovered ? "#a78bfa" : "#60a5fa"}
-            emissive={isHovered ? "#a78bfa" : "#3b82f6"}
-            emissiveIntensity={isHovered ? 0.5 : 0.2}
+            color="hsl(221, 83%, 53%)"
+            emissive="hsl(221, 83%, 53%)"
+            emissiveIntensity={isHovered ? 0.8 : 0.3}
             transparent
-            opacity={0.9}
-            metalness={0.8}
-            roughness={0.2}
+            opacity={isHovered ? 0.95 : 0.85}
+            metalness={0.9}
+            roughness={0.1}
           />
         </Text3D>
       </Center>
@@ -64,11 +64,11 @@ const HolographicSkillContent = ({ text, isHovered }: HolographicSkillContentPro
             <mesh key={i} position={[Math.cos(rad) * 1.5, Math.sin(rad) * 1.5, 0]}>
               <boxGeometry args={[0.02, 0.5, 0.02]} />
               <meshStandardMaterial
-                color="#a78bfa"
-                emissive="#a78bfa"
-                emissiveIntensity={0.8}
+                color="hsl(221, 83%, 53%)"
+                emissive="hsl(221, 83%, 53%)"
+                emissiveIntensity={1}
                 transparent
-                opacity={0.6}
+                opacity={0.7}
               />
             </mesh>
           );

@@ -19,10 +19,12 @@ function FloatingGeometry({ position, geometry }: { position: [number, number, n
         return (
           <Sphere ref={meshRef} args={[1, 32, 32]}>
             <meshStandardMaterial 
-              color="hsl(217, 91%, 60%)" 
+              color="hsl(221, 83%, 53%)" 
               wireframe 
               transparent 
-              opacity={0.3}
+              opacity={0.25}
+              emissive="hsl(221, 83%, 53%)"
+              emissiveIntensity={0.2}
             />
           </Sphere>
         );
@@ -30,10 +32,12 @@ function FloatingGeometry({ position, geometry }: { position: [number, number, n
         return (
           <Torus ref={meshRef} args={[1.2, 0.4, 16, 100]}>
             <meshStandardMaterial 
-              color="hsl(280, 100%, 70%)" 
+              color="hsl(221, 83%, 53%)" 
               wireframe 
               transparent 
-              opacity={0.25}
+              opacity={0.2}
+              emissive="hsl(221, 83%, 53%)"
+              emissiveIntensity={0.15}
             />
           </Torus>
         );
@@ -41,10 +45,12 @@ function FloatingGeometry({ position, geometry }: { position: [number, number, n
         return (
           <Box ref={meshRef} args={[1.5, 1.5, 1.5]}>
             <meshStandardMaterial 
-              color="hsl(217, 91%, 60%)" 
+              color="hsl(221, 83%, 53%)" 
               wireframe 
               transparent 
-              opacity={0.2}
+              opacity={0.18}
+              emissive="hsl(221, 83%, 53%)"
+              emissiveIntensity={0.1}
             />
           </Box>
         );
@@ -66,9 +72,9 @@ function FloatingGeometry({ position, geometry }: { position: [number, number, n
 function Scene() {
   return (
     <>
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[10, 10, 5]} intensity={1} />
-      <pointLight position={[-10, -10, -5]} intensity={0.5} color="hsl(280, 100%, 70%)" />
+      <ambientLight intensity={0.3} />
+      <directionalLight position={[10, 10, 5]} intensity={0.8} />
+      <pointLight position={[-10, -10, -5]} intensity={0.6} color="hsl(221, 83%, 53%)" />
       
       <FloatingGeometry position={[-4, 2, -3]} geometry="sphere" />
       <FloatingGeometry position={[4, -1, -2]} geometry="torus" />

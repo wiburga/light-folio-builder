@@ -41,21 +41,21 @@ const SculptedProjectTitleContent = ({
         };
       case "glass":
         return {
-          color: "#60a5fa",
-          metalness: 0.9,
-          roughness: 0.05,
-          emissive: "#3b82f6",
-          emissiveIntensity: 0.3,
+          color: "hsl(221, 83%, 53%)",
+          metalness: 0.95,
+          roughness: 0.02,
+          emissive: "hsl(221, 83%, 53%)",
+          emissiveIntensity: 0.4,
           transparent: true,
-          opacity: 0.7,
+          opacity: 0.8,
         };
       case "metal":
         return {
-          color: "#d97706",
+          color: "hsl(0, 0%, 60%)",
           metalness: 1,
-          roughness: 0.3,
-          emissive: "#ea580c",
-          emissiveIntensity: 0.2,
+          roughness: 0.2,
+          emissive: "hsl(221, 83%, 53%)",
+          emissiveIntensity: 0.15,
         };
     }
   };

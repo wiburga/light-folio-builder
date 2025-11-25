@@ -16,9 +16,9 @@ const Logo3DContent = () => {
 
   return (
     <>
-      <ambientLight intensity={0.5} />
-      <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
-      <pointLight position={[-10, -10, -10]} intensity={0.5} color="#60a5fa" />
+      <ambientLight intensity={0.3} />
+      <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1.2} castShadow />
+      <pointLight position={[-10, -10, -10]} intensity={0.8} color="hsl(221, 83%, 53%)" />
       
       <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
         <group ref={groupRef}>
@@ -48,8 +48,8 @@ const Logo3DContent = () => {
                 temporalDistortion={0.1}
                 clearcoat={1}
                 attenuationDistance={0.5}
-                attenuationColor="#60a5fa"
-                color="#3b82f6"
+                attenuationColor="hsl(221, 83%, 53%)"
+                color="hsl(221, 83%, 53%)"
                 transmission={0.9}
               />
             </Text3D>
@@ -64,7 +64,13 @@ const Logo3DContent = () => {
               curveSegments={8}
             >
               DEVELOPER
-              <meshStandardMaterial color="#a78bfa" metalness={0.8} roughness={0.2} />
+              <meshStandardMaterial 
+                color="hsl(221, 83%, 53%)" 
+                metalness={0.95} 
+                roughness={0.1}
+                emissive="hsl(221, 83%, 53%)"
+                emissiveIntensity={0.3}
+              />
             </Text3D>
           </Center>
         </group>
