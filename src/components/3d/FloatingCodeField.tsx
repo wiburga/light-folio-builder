@@ -72,7 +72,7 @@ const FloatingCodeFieldContent = () => {
 
 const FloatingCodeField = () => {
   return (
-    <div className="fixed inset-0 -z-10 opacity-20">
+    <div className="fixed inset-0 -z-10 opacity-30">
       <Canvas camera={{ position: [0, 0, 10], fov: 75 }}>
         <FloatingCodeFieldContent />
       </Canvas>
