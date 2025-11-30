@@ -55,7 +55,7 @@ const Hero = () => {
           }}
         >
           <motion.h1 
-            className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"
+            className="text-3xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"
             style={{
               transform: "translateZ(50px)",
               transformStyle: "preserve-3d",
@@ -64,7 +64,7 @@ const Hero = () => {
             Isaias Burga
           </motion.h1>
           <motion.p 
-            className="text-2xl md:text-3xl text-muted-foreground mb-8"
+            className="text-lg sm:text-2xl md:text-3xl text-muted-foreground mb-6 sm:mb-8"
             style={{
               transform: "translateZ(30px)",
               transformStyle: "preserve-3d",
@@ -73,7 +73,7 @@ const Hero = () => {
             Desarrollador Junior & Estudiante ESPE
           </motion.p>
           <motion.p 
-            className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto"
+            className="text-sm sm:text-base md:text-lg text-muted-foreground mb-8 sm:mb-12 max-w-2xl mx-auto px-2"
             style={{
               transform: "translateZ(20px)",
               transformStyle: "preserve-3d",

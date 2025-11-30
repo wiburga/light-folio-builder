@@ -101,6 +101,7 @@ const Scene3D = () => {
         camera={{ position: [0, 0, 8], fov: 50 }}
         dpr={[1, 1.5]}
         style={{ background: 'transparent' }}
+        performance={{ min: 0.5 }}
       >
         <Scene />
       </Canvas>

@@ -72,8 +72,8 @@ const FloatingCodeFieldContent = () => {
 
 const FloatingCodeField = () => {
   return (
-    <div className="fixed inset-0 -z-10 opacity-30 blur-[1px]">
-      <Canvas camera={{ position: [0, 0, 10], fov: 75 }}>
+    <div className="fixed inset-0 -z-10 opacity-20 sm:opacity-30 blur-[0.5px] sm:blur-[1px]">
+      <Canvas camera={{ position: [0, 0, 10], fov: 75 }} dpr={[1, 1.5]}>
         <FloatingCodeFieldContent />
       </Canvas>
     </div>
