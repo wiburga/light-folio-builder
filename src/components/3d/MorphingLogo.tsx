@@ -84,8 +84,8 @@ const MorphingLogo = () => {
   }, []);
 
   return (
-    <div className="w-full h-32">
-      <Canvas camera={{ position: [0, 0, 4], fov: 50 }}>
+    <div className="w-full h-20 sm:h-28 md:h-32">
+      <Canvas camera={{ position: [0, 0, 4], fov: 50 }} dpr={[1, 1.5]}>
         <MorphingLogoContent stage={stage} />
       </Canvas>
     </div>

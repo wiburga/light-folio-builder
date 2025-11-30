@@ -34,18 +34,18 @@ const Contact = () => {
   return (
     <Section3DWrapper id="contact" className="py-20 px-4" direction="left" delay={0.2}>
       <div className="container mx-auto max-w-4xl">
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-6 animate-fade-in">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4 sm:mb-6 animate-fade-in">
           Conectemos
         </h2>
-        <p className="text-center text-muted-foreground text-lg mb-12 max-w-2xl mx-auto">
+        <p className="text-center text-muted-foreground text-sm sm:text-base md:text-lg mb-8 sm:mb-12 max-w-2xl mx-auto px-2">
           Siempre estoy interesado en conocer nuevos proyectos y oportunidades de aprendizaje. Si tienes alguna pregunta o simplemente quieres saludar, ¡no dudes en contactarme!
         </p>
         
-        <div className="grid sm:grid-cols-2 gap-6 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-8 sm:mb-12">
           {socialLinks.map((link, index) => (
             <Card
               key={link.name}
-              className="p-6 bg-card border-border shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-glow)] transition-[var(--transition-smooth)] animate-slide-up"
+              className="p-4 sm:p-6 bg-card border-border shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-glow)] transition-[var(--transition-smooth)] animate-slide-up"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <a

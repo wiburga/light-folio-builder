@@ -44,14 +44,14 @@ const Projects = () => {
       delay={0.15}
     >
       <div className="container mx-auto max-w-6xl">
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4 sm:mb-4">
           Proyectos
         </h2>
-        <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+        <p className="text-center text-muted-foreground text-sm sm:text-base mb-8 sm:mb-12 max-w-2xl mx-auto px-2">
           Algunos de los proyectos en los que he trabajado durante mi formación
         </p>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {projects.map((project, index) => (
             <motion.div
               key={index}
@@ -60,7 +60,7 @@ const Projects = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.4 }}
             >
-              <Card className="h-full p-6 hover:shadow-lg transition-all hover:-translate-y-1 border-border/50">
+              <Card className="h-full p-4 sm:p-6 hover:shadow-lg transition-all hover:-translate-y-1 border-border/50">
                 {/* 3D Sculpted Title */}
                 <div className="mb-4 -mt-2">
                   <SculptedProjectTitle 

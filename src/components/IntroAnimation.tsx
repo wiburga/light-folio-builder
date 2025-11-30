@@ -74,7 +74,7 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
                 duration: 2,
               }
             }}
-            className="text-8xl md:text-9xl font-bold tracking-wider"
+            className="text-5xl sm:text-8xl md:text-9xl font-bold tracking-wider"
             style={{
               color: "hsl(var(--primary))",
               fontFamily: "'Courier New', monospace",
@@ -89,7 +89,7 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
         {stage === "plan" && (
           <motion.div
             key="plan"
-            className="relative text-8xl md:text-9xl font-bold tracking-wider"
+            className="relative text-5xl sm:text-8xl md:text-9xl font-bold tracking-wider"
             style={{
               color: "hsl(var(--primary))",
               fontFamily: "'Courier New', monospace",
@@ -135,7 +135,7 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
             key="code"
             className="absolute inset-0 flex items-center justify-center overflow-hidden"
           >
-            {Array.from({ length: 40 }).map((_, i) => (
+            {Array.from({ length: 25 }).map((_, i) => (
               <motion.div
                 key={i}
                 initial={{ 
@@ -154,7 +154,7 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
                   delay: Math.random() * 0.5,
                   ease: "easeOut",
                 }}
-                className="absolute text-2xl md:text-4xl font-mono"
+                className="absolute text-lg sm:text-2xl md:text-4xl font-mono"
                 style={{
                   color: showError ? "hsl(0, 100%, 60%)" : "hsl(var(--accent))",
                   textShadow: showError 
@@ -211,7 +211,7 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
                 delay: 0.8,
               }
             }}
-            className="text-6xl md:text-8xl font-bold tracking-wider text-center"
+            className="text-4xl sm:text-6xl md:text-8xl font-bold tracking-wider text-center px-4"
             style={{
               color: "hsl(var(--primary))",
               fontFamily: "'Courier New', monospace",
