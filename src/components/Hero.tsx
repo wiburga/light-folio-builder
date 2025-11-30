@@ -84,7 +84,7 @@ const Hero = () => {
               transformStyle: "preserve-3d",
             }}
           >
-            Estudiante de la Universidad de las Fuerzas Armadas ESPE, apasionado por la tecnología y el desarrollo web. Comenzando mi camino en el mundo de la programación.
+            Apasionado por la tecnología y el desarrollo de software. Creando soluciones digitales innovadoras y transformando ideas en proyectos funcionales.
           </motion.p>
           <motion.div 
             className="flex flex-wrap gap-4 justify-center"
