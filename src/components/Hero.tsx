@@ -63,15 +63,20 @@ const Hero = () => {
           >
             Isaias Burga
           </motion.h1>
-          <motion.p 
-            className="text-lg sm:text-2xl md:text-3xl text-muted-foreground mb-6 sm:mb-8"
+          <motion.div 
+            className="mb-6 sm:mb-8"
             style={{
               transform: "translateZ(30px)",
               transformStyle: "preserve-3d",
             }}
           >
-            Desarrollador Junior & Estudiante ESPE
-          </motion.p>
+            <p className="text-lg sm:text-2xl md:text-3xl text-foreground/90 font-medium tracking-wide">
+              Desarrollador de Software
+            </p>
+            <p className="text-sm sm:text-base md:text-lg text-muted-foreground mt-2 italic">
+              Autodidacta <span className="text-primary mx-2">+</span> Formación Universitaria
+            </p>
+          </motion.div>
           <motion.p 
             className="text-sm sm:text-base md:text-lg text-muted-foreground mb-8 sm:mb-12 max-w-2xl mx-auto px-2"
             style={{
