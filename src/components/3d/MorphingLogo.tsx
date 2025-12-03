@@ -1,7 +1,8 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Text3D, Center } from "@react-three/drei";
+import { Text3D, Center, Preload } from "@react-three/drei";
 import * as THREE from "three";
+import { useDevicePerformance } from "@/hooks/use-device-performance";
 
 interface MorphingLogoContentProps {
   stage: "code" | "brackets";
@@ -72,8 +73,32 @@ const MorphingLogoContent = ({ stage }: MorphingLogoContentProps) => {
   );
 };
 
+// Simple 2D fallback for low-end devices
+const MorphingLogoFallback = () => {
+  const [stage, setStage] = useState<"code" | "brackets">("code");
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setStage((prev) => (prev === "code" ? "brackets" : "code"));
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="w-full h-20 sm:h-28 md:h-32 flex items-center justify-center">
+      <span 
+        className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary transition-all duration-500"
+        style={{ textShadow: "0 0 20px hsl(221, 83%, 53%)" }}
+      >
+        {stage === "code" ? "CODE" : "< >"}
+      </span>
+    </div>
+  );
+};
+
 const MorphingLogo = () => {
   const [stage, setStage] = useState<"code" | "brackets">("code");
+  const { isMobile, isLowEnd, reducedMotion, maxDpr } = useDevicePerformance();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -83,10 +108,27 @@ const MorphingLogo = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Use 2D fallback for low-end devices
+  if (isLowEnd || reducedMotion) {
+    return <MorphingLogoFallback />;
+  }
+
   return (
     <div className="w-full h-20 sm:h-28 md:h-32">
-      <Canvas camera={{ position: [0, 0, 4], fov: 50 }} dpr={[1, 1.5]}>
-        <MorphingLogoContent stage={stage} />
+      <Canvas 
+        camera={{ position: [0, 0, 4], fov: 50 }} 
+        dpr={[1, maxDpr]}
+        gl={{
+          antialias: !isMobile,
+          alpha: true,
+          powerPreference: isMobile ? "low-power" : "high-performance",
+          stencil: false,
+        }}
+      >
+        <Suspense fallback={null}>
+          <MorphingLogoContent stage={stage} />
+          <Preload all />
+        </Suspense>
       </Canvas>
     </div>
   );
