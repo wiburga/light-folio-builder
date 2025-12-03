@@ -1,60 +1,163 @@
-import { useRef, useMemo, useEffect } from "react";
+import { useRef, useMemo, useEffect, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Float, Sphere, Torus, Box, OrbitControls } from "@react-three/drei";
+import { Float, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import { useDevicePerformance } from "@/hooks/use-device-performance";
 
-function FloatingGeometry({ position, geometry }: { position: [number, number, number], geometry: 'sphere' | 'torus' | 'box' }) {
-  const meshRef = useRef<THREE.Mesh>(null);
-  
-  useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.x += 0.001;
-      meshRef.current.rotation.y += 0.002;
+// LOD configuration: distance thresholds and segment counts
+const LOD_CONFIG = {
+  sphere: {
+    high: { segments: 32, distance: 0 },
+    medium: { segments: 16, distance: 5 },
+    low: { segments: 8, distance: 10 },
+  },
+  torus: {
+    high: { radialSegments: 16, tubularSegments: 64, distance: 0 },
+    medium: { radialSegments: 8, tubularSegments: 32, distance: 5 },
+    low: { radialSegments: 6, tubularSegments: 16, distance: 10 },
+  },
+  box: {
+    high: { segments: 4, distance: 0 },
+    medium: { segments: 2, distance: 5 },
+    low: { segments: 1, distance: 10 },
+  },
+};
+
+// Material shared across all geometries for efficiency
+const sharedMaterialProps = {
+  color: new THREE.Color("hsl(221, 83%, 53%)"),
+  wireframe: true,
+  transparent: true,
+  emissive: new THREE.Color("hsl(221, 83%, 53%)"),
+};
+
+// LOD Sphere component
+function LODSphere({ opacity = 0.25, emissiveIntensity = 0.2 }: { opacity?: number; emissiveIntensity?: number }) {
+  const groupRef = useRef<THREE.Group>(null);
+  const [lodLevel, setLodLevel] = useState<"high" | "medium" | "low">("high");
+  const { camera } = useThree();
+
+  useFrame(() => {
+    if (groupRef.current) {
+      const distance = camera.position.distanceTo(groupRef.current.position);
+      
+      if (distance > LOD_CONFIG.sphere.low.distance) {
+        if (lodLevel !== "low") setLodLevel("low");
+      } else if (distance > LOD_CONFIG.sphere.medium.distance) {
+        if (lodLevel !== "medium") setLodLevel("medium");
+      } else {
+        if (lodLevel !== "high") setLodLevel("high");
+      }
+      
+      groupRef.current.rotation.x += 0.001;
+      groupRef.current.rotation.y += 0.002;
     }
   });
 
+  const segments = LOD_CONFIG.sphere[lodLevel].segments;
+
+  return (
+    <group ref={groupRef}>
+      <mesh>
+        <sphereGeometry args={[1, segments, segments]} />
+        <meshStandardMaterial
+          {...sharedMaterialProps}
+          opacity={opacity}
+          emissiveIntensity={emissiveIntensity}
+        />
+      </mesh>
+    </group>
+  );
+}
+
+// LOD Torus component
+function LODTorus({ opacity = 0.2, emissiveIntensity = 0.15 }: { opacity?: number; emissiveIntensity?: number }) {
+  const groupRef = useRef<THREE.Group>(null);
+  const [lodLevel, setLodLevel] = useState<"high" | "medium" | "low">("high");
+  const { camera } = useThree();
+
+  useFrame(() => {
+    if (groupRef.current) {
+      const distance = camera.position.distanceTo(groupRef.current.position);
+      
+      if (distance > LOD_CONFIG.torus.low.distance) {
+        if (lodLevel !== "low") setLodLevel("low");
+      } else if (distance > LOD_CONFIG.torus.medium.distance) {
+        if (lodLevel !== "medium") setLodLevel("medium");
+      } else {
+        if (lodLevel !== "high") setLodLevel("high");
+      }
+      
+      groupRef.current.rotation.x += 0.001;
+      groupRef.current.rotation.y += 0.002;
+    }
+  });
+
+  const config = LOD_CONFIG.torus[lodLevel];
+
+  return (
+    <group ref={groupRef}>
+      <mesh>
+        <torusGeometry args={[1.2, 0.4, config.radialSegments, config.tubularSegments]} />
+        <meshStandardMaterial
+          {...sharedMaterialProps}
+          opacity={opacity}
+          emissiveIntensity={emissiveIntensity}
+        />
+      </mesh>
+    </group>
+  );
+}
+
+// LOD Box component
+function LODBox({ opacity = 0.18, emissiveIntensity = 0.1 }: { opacity?: number; emissiveIntensity?: number }) {
+  const groupRef = useRef<THREE.Group>(null);
+  const [lodLevel, setLodLevel] = useState<"high" | "medium" | "low">("high");
+  const { camera } = useThree();
+
+  useFrame(() => {
+    if (groupRef.current) {
+      const distance = camera.position.distanceTo(groupRef.current.position);
+      
+      if (distance > LOD_CONFIG.box.low.distance) {
+        if (lodLevel !== "low") setLodLevel("low");
+      } else if (distance > LOD_CONFIG.box.medium.distance) {
+        if (lodLevel !== "medium") setLodLevel("medium");
+      } else {
+        if (lodLevel !== "high") setLodLevel("high");
+      }
+      
+      groupRef.current.rotation.x += 0.001;
+      groupRef.current.rotation.y += 0.002;
+    }
+  });
+
+  const segments = LOD_CONFIG.box[lodLevel].segments;
+
+  return (
+    <group ref={groupRef}>
+      <mesh>
+        <boxGeometry args={[1.5, 1.5, 1.5, segments, segments, segments]} />
+        <meshStandardMaterial
+          {...sharedMaterialProps}
+          opacity={opacity}
+          emissiveIntensity={emissiveIntensity}
+        />
+      </mesh>
+    </group>
+  );
+}
+
+// Floating geometry with LOD
+function FloatingGeometry({ position, geometry }: { position: [number, number, number], geometry: 'sphere' | 'torus' | 'box' }) {
   const renderGeometry = () => {
     switch (geometry) {
       case 'sphere':
-        return (
-          <Sphere ref={meshRef} args={[1, 32, 32]}>
-            <meshStandardMaterial 
-              color="hsl(221, 83%, 53%)" 
-              wireframe 
-              transparent 
-              opacity={0.25}
-              emissive="hsl(221, 83%, 53%)"
-              emissiveIntensity={0.2}
-            />
-          </Sphere>
-        );
+        return <LODSphere />;
       case 'torus':
-        return (
-          <Torus ref={meshRef} args={[1.2, 0.4, 16, 100]}>
-            <meshStandardMaterial 
-              color="hsl(221, 83%, 53%)" 
-              wireframe 
-              transparent 
-              opacity={0.2}
-              emissive="hsl(221, 83%, 53%)"
-              emissiveIntensity={0.15}
-            />
-          </Torus>
-        );
+        return <LODTorus />;
       case 'box':
-        return (
-          <Box ref={meshRef} args={[1.5, 1.5, 1.5]}>
-            <meshStandardMaterial 
-              color="hsl(221, 83%, 53%)" 
-              wireframe 
-              transparent 
-              opacity={0.18}
-              emissive="hsl(221, 83%, 53%)"
-              emissiveIntensity={0.1}
-            />
-          </Box>
-        );
+        return <LODBox />;
     }
   };
 
