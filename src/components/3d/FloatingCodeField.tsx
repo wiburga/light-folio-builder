@@ -2,6 +2,7 @@ import { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Text } from "@react-three/drei";
 import * as THREE from "three";
+import { useDevicePerformance } from "@/hooks/use-device-performance";
 
 interface FloatingWordProps {
   text: string;
@@ -36,16 +37,18 @@ const FloatingWord = ({ text, position, speed, size }: FloatingWordProps) => {
   );
 };
 
-const FloatingCodeFieldContent = () => {
+// FloatingCodeFieldContent moved below
+
+const FloatingCodeFieldContent = ({ wordCount }: { wordCount: number }) => {
   const keywords = useMemo(() => [
     "React", "TypeScript", "JavaScript", "Python", "Node.js",
     "API", "Database", "UI/UX", "Cloud", "Git",
     "Docker", "PostgreSQL", "MongoDB", "Express", "Next.js",
     "Tailwind", "REST", "GraphQL", "AWS", "DevOps"
-  ], []);
+  ].slice(0, wordCount), [wordCount]);
 
   const words = useMemo(() => 
-    keywords.map((word, i) => ({
+    keywords.map((word) => ({
       text: word,
       position: [
         (Math.random() - 0.5) * 20,
@@ -71,10 +74,29 @@ const FloatingCodeFieldContent = () => {
 };
 
 const FloatingCodeField = () => {
+  const { isMobile, isLowEnd, reducedMotion, maxDpr } = useDevicePerformance();
+
+  // Don't render on very low-end devices or if reduced motion
+  if (isLowEnd || reducedMotion) {
+    return null;
+  }
+
+  // Reduce words on mobile
+  const wordCount = isMobile ? 10 : 20;
+
   return (
     <div className="fixed inset-0 -z-10 opacity-20 sm:opacity-30 blur-[0.5px] sm:blur-[1px]">
-      <Canvas camera={{ position: [0, 0, 10], fov: 75 }} dpr={[1, 1.5]}>
-        <FloatingCodeFieldContent />
+      <Canvas 
+        camera={{ position: [0, 0, 10], fov: 75 }} 
+        dpr={[1, maxDpr]}
+        gl={{
+          antialias: false,
+          alpha: true,
+          powerPreference: isMobile ? "low-power" : "high-performance",
+          stencil: false,
+        }}
+      >
+        <FloatingCodeFieldContent wordCount={wordCount} />
       </Canvas>
     </div>
   );
