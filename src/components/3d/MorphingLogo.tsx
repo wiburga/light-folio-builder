@@ -3,6 +3,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Text3D, Center, Preload } from "@react-three/drei";
 import * as THREE from "three";
 import { useDevicePerformance } from "@/hooks/use-device-performance";
+import { use3DGraphics } from "@/contexts/Graphics3DContext";
 
 interface MorphingLogoContentProps {
   stage: "code" | "brackets";
@@ -99,6 +100,7 @@ const MorphingLogoFallback = () => {
 const MorphingLogo = () => {
   const [stage, setStage] = useState<"code" | "brackets">("code");
   const { isMobile, isLowEnd, reducedMotion, maxDpr } = useDevicePerformance();
+  const { is3DEnabled } = use3DGraphics();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -108,8 +110,8 @@ const MorphingLogo = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Use 2D fallback for low-end devices
-  if (isLowEnd || reducedMotion) {
+  // Use 2D fallback for low-end devices or if 3D is disabled
+  if (!is3DEnabled || isLowEnd || reducedMotion) {
     return <MorphingLogoFallback />;
   }
 

@@ -3,6 +3,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Text } from "@react-three/drei";
 import * as THREE from "three";
 import { useDevicePerformance } from "@/hooks/use-device-performance";
+import { use3DGraphics } from "@/contexts/Graphics3DContext";
 
 interface FloatingWordProps {
   text: string;
@@ -75,9 +76,10 @@ const FloatingCodeFieldContent = ({ wordCount }: { wordCount: number }) => {
 
 const FloatingCodeField = () => {
   const { isMobile, isLowEnd, reducedMotion, maxDpr } = useDevicePerformance();
+  const { is3DEnabled } = use3DGraphics();
 
-  // Don't render on very low-end devices or if reduced motion
-  if (isLowEnd || reducedMotion) {
+  // Don't render if 3D is disabled, on very low-end devices or if reduced motion
+  if (!is3DEnabled || isLowEnd || reducedMotion) {
     return null;
   }
 
