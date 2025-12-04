@@ -3,6 +3,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Float, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import { useDevicePerformance } from "@/hooks/use-device-performance";
+import { use3DGraphics } from "@/contexts/Graphics3DContext";
 
 // LOD configuration: distance thresholds and segment counts
 const LOD_CONFIG = {
@@ -244,9 +245,10 @@ function Scene({ isMobile }: { isMobile: boolean }) {
 
 const Scene3D = () => {
   const { isMobile, isLowEnd, reducedMotion, maxDpr } = useDevicePerformance();
+  const { is3DEnabled } = use3DGraphics();
 
-  // Don't render on very low-end devices
-  if (isLowEnd || reducedMotion) {
+  // Don't render if 3D is disabled, on very low-end devices, or reduced motion
+  if (!is3DEnabled || isLowEnd || reducedMotion) {
     return (
       <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-primary/5 to-transparent" />
     );
