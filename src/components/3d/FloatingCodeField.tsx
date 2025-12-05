@@ -4,6 +4,7 @@ import { Text } from "@react-three/drei";
 import * as THREE from "three";
 import { useDevicePerformance } from "@/hooks/use-device-performance";
 import { use3DGraphics } from "@/contexts/Graphics3DContext";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface FloatingWordProps {
   text: string;
@@ -78,29 +79,37 @@ const FloatingCodeField = () => {
   const { isMobile, isLowEnd, reducedMotion, maxDpr } = useDevicePerformance();
   const { is3DEnabled } = use3DGraphics();
 
-  // Don't render if 3D is disabled, on very low-end devices or if reduced motion
-  if (!is3DEnabled || isLowEnd || reducedMotion) {
-    return null;
-  }
+  const show3D = is3DEnabled && !isLowEnd && !reducedMotion;
 
   // Reduce words on mobile
   const wordCount = isMobile ? 10 : 20;
 
   return (
-    <div className="fixed inset-0 -z-10 opacity-20 sm:opacity-30 blur-[0.5px] sm:blur-[1px]">
-      <Canvas 
-        camera={{ position: [0, 0, 10], fov: 75 }} 
-        dpr={[1, maxDpr]}
-        gl={{
-          antialias: false,
-          alpha: true,
-          powerPreference: isMobile ? "low-power" : "high-performance",
-          stencil: false,
-        }}
-      >
-        <FloatingCodeFieldContent wordCount={wordCount} />
-      </Canvas>
-    </div>
+    <AnimatePresence>
+      {show3D && (
+        <motion.div
+          key="floating-code"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+          className="fixed inset-0 -z-10 opacity-20 sm:opacity-30 blur-[0.5px] sm:blur-[1px]"
+        >
+          <Canvas 
+            camera={{ position: [0, 0, 10], fov: 75 }} 
+            dpr={[1, maxDpr]}
+            gl={{
+              antialias: false,
+              alpha: true,
+              powerPreference: isMobile ? "low-power" : "high-performance",
+              stencil: false,
+            }}
+          >
+            <FloatingCodeFieldContent wordCount={wordCount} />
+          </Canvas>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 

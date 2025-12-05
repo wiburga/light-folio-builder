@@ -4,6 +4,7 @@ import { Text3D, Center, Preload } from "@react-three/drei";
 import * as THREE from "three";
 import { useDevicePerformance } from "@/hooks/use-device-performance";
 import { use3DGraphics } from "@/contexts/Graphics3DContext";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface MorphingLogoContentProps {
   stage: "code" | "brackets";
@@ -110,28 +111,49 @@ const MorphingLogo = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Use 2D fallback for low-end devices or if 3D is disabled
-  if (!is3DEnabled || isLowEnd || reducedMotion) {
-    return <MorphingLogoFallback />;
-  }
+  const show3D = is3DEnabled && !isLowEnd && !reducedMotion;
 
   return (
-    <div className="w-full h-20 sm:h-28 md:h-32">
-      <Canvas 
-        camera={{ position: [0, 0, 4], fov: 50 }} 
-        dpr={[1, maxDpr]}
-        gl={{
-          antialias: !isMobile,
-          alpha: true,
-          powerPreference: isMobile ? "low-power" : "high-performance",
-          stencil: false,
-        }}
-      >
-        <Suspense fallback={null}>
-          <MorphingLogoContent stage={stage} />
-          <Preload all />
-        </Suspense>
-      </Canvas>
+    <div className="w-full h-20 sm:h-28 md:h-32 overflow-hidden">
+      <AnimatePresence mode="wait">
+        {!show3D ? (
+          <motion.div
+            key="fallback"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="w-full h-full"
+          >
+            <MorphingLogoFallback />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="3d"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="w-full h-full"
+          >
+            <Canvas 
+              camera={{ position: [0, 0, 4], fov: 50 }} 
+              dpr={[1, maxDpr]}
+              gl={{
+                antialias: !isMobile,
+                alpha: true,
+                powerPreference: isMobile ? "low-power" : "high-performance",
+                stencil: false,
+              }}
+            >
+              <Suspense fallback={null}>
+                <MorphingLogoContent stage={stage} />
+                <Preload all />
+              </Suspense>
+            </Canvas>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
