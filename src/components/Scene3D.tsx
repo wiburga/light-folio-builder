@@ -5,7 +5,7 @@ import * as THREE from "three";
 import { useDevicePerformance } from "@/hooks/use-device-performance";
 import { use3DGraphics } from "@/contexts/Graphics3DContext";
 import { motion, AnimatePresence } from "framer-motion";
-
+import ParticleField from "./3d/ParticleField";
 // LOD configuration: distance thresholds and segment counts
 const LOD_CONFIG = {
   sphere: {
@@ -227,6 +227,14 @@ function Scene({ isMobile }: { isMobile: boolean }) {
       {!isMobile && (
         <pointLight position={[-10, -10, -5]} intensity={0.6} color="hsl(221, 83%, 53%)" />
       )}
+      
+      {/* Particle field background */}
+      <ParticleField 
+        count={isMobile ? 300 : 600} 
+        color="#00D9FF" 
+        size={isMobile ? 0.015 : 0.02}
+        spread={25}
+      />
       
       {geometries.map((geo, i) => (
         <FloatingGeometry key={i} position={geo.position} geometry={geo.geometry} />
