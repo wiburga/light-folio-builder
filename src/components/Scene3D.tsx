@@ -4,6 +4,7 @@ import { Float, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import { useDevicePerformance } from "@/hooks/use-device-performance";
 import { use3DGraphics } from "@/contexts/Graphics3DContext";
+import { motion, AnimatePresence } from "framer-motion";
 
 // LOD configuration: distance thresholds and segment counts
 const LOD_CONFIG = {
@@ -247,29 +248,46 @@ const Scene3D = () => {
   const { isMobile, isLowEnd, reducedMotion, maxDpr } = useDevicePerformance();
   const { is3DEnabled } = use3DGraphics();
 
-  // Don't render if 3D is disabled, on very low-end devices, or reduced motion
-  if (!is3DEnabled || isLowEnd || reducedMotion) {
-    return (
-      <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-primary/5 to-transparent" />
-    );
-  }
+  const show3D = is3DEnabled && !isLowEnd && !reducedMotion;
 
   return (
     <div className="absolute inset-0 w-full h-full">
-      <Canvas
-        camera={{ position: [0, 0, 8], fov: 50 }}
-        dpr={[1, maxDpr]}
-        style={{ background: 'transparent' }}
-        performance={{ min: isMobile ? 0.3 : 0.5 }}
-        gl={{
-          antialias: !isMobile,
-          alpha: true,
-          powerPreference: isMobile ? "low-power" : "high-performance",
-          stencil: false,
-        }}
-      >
-        <Scene isMobile={isMobile} />
-      </Canvas>
+      <AnimatePresence mode="wait">
+        {!show3D ? (
+          <motion.div
+            key="fallback"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            className="absolute inset-0 w-full h-full bg-gradient-to-b from-primary/5 to-transparent"
+          />
+        ) : (
+          <motion.div
+            key="3d"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            className="absolute inset-0 w-full h-full"
+          >
+            <Canvas
+              camera={{ position: [0, 0, 8], fov: 50 }}
+              dpr={[1, maxDpr]}
+              style={{ background: 'transparent' }}
+              performance={{ min: isMobile ? 0.3 : 0.5 }}
+              gl={{
+                antialias: !isMobile,
+                alpha: true,
+                powerPreference: isMobile ? "low-power" : "high-performance",
+                stencil: false,
+              }}
+            >
+              <Scene isMobile={isMobile} />
+            </Canvas>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
