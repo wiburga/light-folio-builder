@@ -58,21 +58,19 @@ const FPSMonitor = () => {
   };
 
   return (
-    <div className="fixed bottom-4 left-4 z-50 bg-background/90 backdrop-blur-sm border border-border rounded-lg p-3 font-mono text-xs shadow-lg">
-      <div className="flex flex-col gap-1">
-        <div className="flex items-center gap-2">
-          <span className="text-muted-foreground">FPS:</span>
+    <div className="fixed bottom-2 left-2 sm:bottom-4 sm:left-4 z-50 bg-background/90 backdrop-blur-sm border border-border rounded-md sm:rounded-lg p-1.5 sm:p-3 font-mono text-[10px] sm:text-xs shadow-lg">
+      <div className="flex flex-row sm:flex-col gap-2 sm:gap-1">
+        <div className="flex items-center gap-1 sm:gap-2">
+          <span className="text-muted-foreground hidden sm:inline">FPS:</span>
           <span className={`font-bold ${getFpsColor(fps)}`}>{fps}</span>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="text-muted-foreground">AVG:</span>
+        <div className="flex items-center gap-1 sm:gap-2">
+          <span className="text-muted-foreground hidden sm:inline">AVG:</span>
           <span className={`font-bold ${getFpsColor(avgFps)}`}>{avgFps}</span>
         </div>
-        <div className="flex items-center gap-2 pt-1 border-t border-border/50">
-          <span className="text-muted-foreground">3D:</span>
-          <span className={is3DEnabled ? "text-green-400" : "text-muted-foreground"}>
-            {is3DEnabled ? "ON" : "OFF"}
-          </span>
+        <div className="flex items-center gap-1 sm:gap-2 sm:pt-1 sm:border-t border-border/50">
+          <span className={`w-2 h-2 rounded-full ${is3DEnabled ? "bg-green-400" : "bg-muted-foreground"}`} />
+          <span className="hidden sm:inline text-muted-foreground">3D</span>
         </div>
       </div>
     </div>
