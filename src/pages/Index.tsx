@@ -9,6 +9,7 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import IntroAnimation from "@/components/IntroAnimation";
 import FloatingCodeField from "@/components/3d/FloatingCodeField";
+import FPSMonitor from "@/components/FPSMonitor";
 
 const Index = () => {
   const [showIntro, setShowIntro] = useState(true);
@@ -18,6 +19,7 @@ const Index = () => {
       {showIntro && <IntroAnimation onComplete={() => setShowIntro(false)} />}
       {/* 3D Floating Code Field - visible across all pages */}
       <FloatingCodeField />
+      <FPSMonitor />
       <div className="min-h-screen bg-background">
         <Navigation />
         <Hero />
