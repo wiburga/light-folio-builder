@@ -10,6 +10,7 @@ import ShootingStars from "./3d/ShootingStars";
 import CosmicNebula from "./3d/CosmicNebula";
 import AuroraBorealis from "./3d/AuroraBorealis";
 import HolographicGrid from "./3d/HolographicGrid";
+import LensFlare from "./3d/LensFlare";
 // LOD configuration: distance thresholds and segment counts
 const LOD_CONFIG = {
   sphere: {
@@ -252,6 +253,8 @@ function Scene({ isMobile }: { isMobile: boolean }) {
       {/* Holographic grid floor */}
       <HolographicGrid />
       
+      {/* Lens flare effect */}
+      {!isMobile && <LensFlare />}
       {geometries.map((geo, i) => (
         <FloatingGeometry key={i} position={geo.position} geometry={geo.geometry} />
       ))}
