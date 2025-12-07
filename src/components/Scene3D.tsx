@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import ParticleField from "./3d/ParticleField";
 import ShootingStars from "./3d/ShootingStars";
 import CosmicNebula from "./3d/CosmicNebula";
+import AuroraBorealis from "./3d/AuroraBorealis";
 // LOD configuration: distance thresholds and segment counts
 const LOD_CONFIG = {
   sphere: {
@@ -229,6 +230,9 @@ function Scene({ isMobile }: { isMobile: boolean }) {
       {!isMobile && (
         <pointLight position={[-10, -10, -5]} intensity={0.6} color="hsl(221, 83%, 53%)" />
       )}
+      
+      {/* Aurora borealis effect */}
+      <AuroraBorealis />
       
       {/* Cosmic nebula background */}
       <CosmicNebula />
