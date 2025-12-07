@@ -6,6 +6,7 @@ import { useDevicePerformance } from "@/hooks/use-device-performance";
 import { use3DGraphics } from "@/contexts/Graphics3DContext";
 import { motion, AnimatePresence } from "framer-motion";
 import ParticleField from "./3d/ParticleField";
+import ShootingStars from "./3d/ShootingStars";
 // LOD configuration: distance thresholds and segment counts
 const LOD_CONFIG = {
   sphere: {
@@ -235,6 +236,9 @@ function Scene({ isMobile }: { isMobile: boolean }) {
         size={isMobile ? 0.015 : 0.02}
         spread={25}
       />
+      
+      {/* Shooting stars effect */}
+      <ShootingStars />
       
       {geometries.map((geo, i) => (
         <FloatingGeometry key={i} position={geo.position} geometry={geo.geometry} />
