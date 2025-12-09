@@ -2,8 +2,6 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Github } from "lucide-react";
 import { motion } from "framer-motion";
-import Section3DWrapper from "@/components/Section3DWrapper";
-import SculptedProjectTitle from "@/components/3d/SculptedProjectTitle";
 
 const Projects = () => {
   const projects = [
@@ -14,7 +12,6 @@ const Projects = () => {
       technologies: ["React", "TypeScript", "Tailwind", "Recharts"],
       demoUrl: "https://preview--vision-kpi-tool.lovable.app/",
       repoUrl: "https://github.com/wiburga/vision-kpi-tool",
-      material: "glass" as const,
     },
     {
       title: "E-Commerce Web",
@@ -23,7 +20,6 @@ const Projects = () => {
       technologies: ["React", "TypeScript", "Supabase", "shadcn/ui"],
       demoUrl: "https://preview--mern-commerce.lovable.app",
       repoUrl: "https://github.com/wiburga/mern-commerce",
-      material: "metal" as const,
     },
     {
       title: "Sistema de Citas",
@@ -32,24 +28,33 @@ const Projects = () => {
       technologies: ["React", "TypeScript", "Tailwind CSS"],
       demoUrl: "https://preview--patient-appointments-pro.lovable.app/auth",
       repoUrl: "https://github.com/wiburga/patient-appointments-pro",
-      material: "concrete" as const,
     },
   ];
 
   return (
-    <Section3DWrapper
+    <section
       id="projects"
       className="py-20 px-4 scroll-mt-20"
-      direction="right"
-      delay={0.15}
     >
       <div className="container mx-auto max-w-6xl">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4 sm:mb-4">
+        <motion.h2 
+          className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4 sm:mb-4"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
           Proyectos
-        </h2>
-        <p className="text-center text-muted-foreground text-sm sm:text-base mb-8 sm:mb-12 max-w-2xl mx-auto px-2">
+        </motion.h2>
+        <motion.p 
+          className="text-center text-muted-foreground text-sm sm:text-base mb-8 sm:mb-12 max-w-2xl mx-auto px-2"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1, duration: 0.5 }}
+        >
           Algunos de los proyectos en los que he trabajado durante mi formación
-        </p>
+        </motion.p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {projects.map((project, index) => (
@@ -61,13 +66,9 @@ const Projects = () => {
               transition={{ delay: index * 0.1, duration: 0.4 }}
             >
               <Card className="h-full p-4 sm:p-6 hover:shadow-lg transition-all hover:-translate-y-1 border-border/50">
-                {/* 3D Sculpted Title */}
-                <div className="mb-4 -mt-2">
-                  <SculptedProjectTitle 
-                    title={project.title} 
-                    material={project.material} 
-                  />
-                </div>
+                <h3 className="text-xl font-semibold mb-2 text-primary">
+                  {project.title}
+                </h3>
 
                 <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                   {project.description}
@@ -119,7 +120,7 @@ const Projects = () => {
           ))}
         </div>
       </div>
-    </Section3DWrapper>
+    </section>
   );
 };
 

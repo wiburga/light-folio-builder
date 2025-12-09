@@ -1,15 +1,26 @@
 import { Card } from "@/components/ui/card";
-import Section3DWrapper from "@/components/Section3DWrapper";
+import { motion } from "framer-motion";
 
 const About = () => {
   return (
-    <Section3DWrapper id="about" className="py-20 px-4" direction="right">
+    <section id="about" className="py-20 px-4">
       <div className="container mx-auto max-w-5xl">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12 animate-fade-in">
+        <motion.h2 
+          className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
           Sobre Mí
-        </h2>
+        </motion.h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-center">
-          <div className="animate-slide-up">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
             <Card className="p-4 sm:p-6 md:p-8 bg-card border-border shadow-[var(--shadow-card)]">
               <div className="space-y-3 sm:space-y-4 text-muted-foreground">
                 <p className="text-sm sm:text-base md:text-lg leading-relaxed">
@@ -23,9 +34,14 @@ const About = () => {
                 </p>
               </div>
             </Card>
-          </div>
+          </motion.div>
           
-          <div className="animate-slide-up" style={{ animationDelay: "0.2s" }}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+          >
             <Card className="p-4 sm:p-6 md:p-8 bg-gradient-card border-border shadow-[var(--shadow-card)]">
               <h3 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-primary">Datos Rápidos</h3>
               <ul className="space-y-3 sm:space-y-4">
@@ -47,10 +63,10 @@ const About = () => {
                 </li>
               </ul>
             </Card>
-          </div>
+          </motion.div>
         </div>
       </div>
-    </Section3DWrapper>
+    </section>
   );
 };
 

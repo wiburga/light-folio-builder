@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import Section3DWrapper from "@/components/Section3DWrapper";
+import { motion } from "framer-motion";
 
 const Experience = () => {
   const experiences = [
@@ -19,26 +19,35 @@ const Experience = () => {
   ];
 
   return (
-    <Section3DWrapper id="experience" className="py-20 px-4" direction="up" delay={0.2}>
+    <section id="experience" className="py-20 px-4">
       <div className="container mx-auto max-w-4xl">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12 animate-fade-in">
+        <motion.h2 
+          className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
           Experiencia
-        </h2>
+        </motion.h2>
         <div className="relative">
           {/* Línea del tiempo - hidden on mobile */}
           <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-primary/30 transform md:-translate-x-1/2 hidden sm:block" />
 
           <div className="space-y-12">
             {experiences.map((exp, index) => (
-              <div
+              <motion.div
                 key={index}
-                className={`relative animate-slide-up ${
+                className={`relative ${
                   index % 2 === 0 ? "md:pr-1/2 md:text-right" : "md:pl-1/2 md:ml-auto"
                 }`}
-                style={{ animationDelay: `${index * 0.2}s` }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.2, duration: 0.5 }}
               >
                 {/* Punto de la línea - hidden on mobile */}
-                <div className="absolute left-0 md:left-1/2 w-4 h-4 bg-primary rounded-full transform -translate-x-1/2 md:translate-x-0 top-6 animate-glow hidden sm:block" />
+                <div className="absolute left-0 md:left-1/2 w-4 h-4 bg-primary rounded-full transform -translate-x-1/2 md:translate-x-0 top-6 hidden sm:block" />
 
                 <Card className="sm:ml-8 md:ml-0 p-4 sm:p-6 bg-card border-border shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-glow)] transition-[var(--transition-smooth)]">
                   <div className="space-y-3">
@@ -64,12 +73,12 @@ const Experience = () => {
                     </ul>
                   </div>
                 </Card>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </div>
-    </Section3DWrapper>
+    </section>
   );
 };
 

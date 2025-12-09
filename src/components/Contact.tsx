@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Mail, Linkedin, Github, Twitter } from "lucide-react";
-import Section3DWrapper from "@/components/Section3DWrapper";
+import { Mail, Linkedin, Github } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Contact = () => {
   const socialLinks = [
@@ -32,43 +32,67 @@ const Contact = () => {
   ];
 
   return (
-    <Section3DWrapper id="contact" className="py-20 px-4" direction="left" delay={0.2}>
+    <section id="contact" className="py-20 px-4">
       <div className="container mx-auto max-w-4xl">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4 sm:mb-6 animate-fade-in">
+        <motion.h2 
+          className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4 sm:mb-6"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
           Conectemos
-        </h2>
-        <p className="text-center text-muted-foreground text-sm sm:text-base md:text-lg mb-8 sm:mb-12 max-w-2xl mx-auto px-2">
+        </motion.h2>
+        <motion.p 
+          className="text-center text-muted-foreground text-sm sm:text-base md:text-lg mb-8 sm:mb-12 max-w-2xl mx-auto px-2"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1, duration: 0.5 }}
+        >
           Siempre estoy interesado en conocer nuevos proyectos y oportunidades de aprendizaje. Si tienes alguna pregunta o simplemente quieres saludar, ¡no dudes en contactarme!
-        </p>
+        </motion.p>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-8 sm:mb-12">
           {socialLinks.map((link, index) => (
-            <Card
+            <motion.div
               key={link.name}
-              className="p-4 sm:p-6 bg-card border-border shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-glow)] transition-[var(--transition-smooth)] animate-slide-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.5 }}
             >
-              <a
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-4 group"
+              <Card
+                className="p-4 sm:p-6 bg-card border-border shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-glow)] transition-[var(--transition-smooth)]"
               >
-                <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-[var(--transition-smooth)]">
-                  <link.icon className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <p className="font-semibold text-foreground group-hover:text-primary transition-[var(--transition-smooth)]">
-                    {link.name}
-                  </p>
-                  <p className="text-sm text-muted-foreground">{link.label}</p>
-                </div>
-              </a>
-            </Card>
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 group"
+                >
+                  <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-[var(--transition-smooth)]">
+                    <link.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-foreground group-hover:text-primary transition-[var(--transition-smooth)]">
+                      {link.name}
+                    </p>
+                    <p className="text-sm text-muted-foreground">{link.label}</p>
+                  </div>
+                </a>
+              </Card>
+            </motion.div>
           ))}
         </div>
 
-        <div className="text-center">
+        <motion.div 
+          className="text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+        >
           <Button
             size="lg"
             className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-[var(--shadow-glow)] transition-[var(--transition-smooth)]"
@@ -79,9 +103,9 @@ const Contact = () => {
               Envíame un Email
             </a>
           </Button>
-        </div>
+        </motion.div>
       </div>
-    </Section3DWrapper>
+    </section>
   );
 };
 

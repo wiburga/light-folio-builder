@@ -1,27 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { ArrowDown } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
-import Scene3D from "@/components/Scene3D";
-import MorphingLogo from "@/components/3d/MorphingLogo";
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 
 const Hero = () => {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  
-  const rotateX = useTransform(mouseY, [-300, 300], [5, -5]);
-  const rotateY = useTransform(mouseX, [-300, 300], [-5, 5]);
-
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    mouseX.set(e.clientX - centerX);
-    mouseY.set(e.clientY - centerY);
   };
 
   return (
@@ -33,43 +17,20 @@ const Hero = () => {
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
-      onMouseMove={handleMouseMove}
     >
-      {/* 3D Scene Background */}
-      <Scene3D />
-      
       <div className="container mx-auto px-4 z-10 relative">
-        {/* Morphing Logo */}
-        <div className="flex justify-center mb-8">
-          <MorphingLogo />
-        </div>
         <motion.div 
           className="max-w-4xl mx-auto text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          style={{
-            rotateX,
-            rotateY,
-            transformStyle: "preserve-3d",
-          }}
         >
           <motion.h1 
             className="text-3xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"
-            style={{
-              transform: "translateZ(50px)",
-              transformStyle: "preserve-3d",
-            }}
           >
             Isaias Burga
           </motion.h1>
-          <motion.div 
-            className="mb-6 sm:mb-8"
-            style={{
-              transform: "translateZ(30px)",
-              transformStyle: "preserve-3d",
-            }}
-          >
+          <motion.div className="mb-6 sm:mb-8">
             <p className="text-lg sm:text-2xl md:text-3xl text-foreground/90 font-medium tracking-wide">
               Desarrollador de Software
             </p>
@@ -79,20 +40,10 @@ const Hero = () => {
           </motion.div>
           <motion.p 
             className="text-sm sm:text-base md:text-lg text-muted-foreground mb-8 sm:mb-12 max-w-2xl mx-auto px-2"
-            style={{
-              transform: "translateZ(20px)",
-              transformStyle: "preserve-3d",
-            }}
           >
             Apasionado por la tecnología y el desarrollo de software. Creando soluciones digitales innovadoras y transformando ideas en proyectos funcionales.
           </motion.p>
-          <motion.div 
-            className="flex flex-wrap gap-4 justify-center"
-            style={{
-              transform: "translateZ(40px)",
-              transformStyle: "preserve-3d",
-            }}
-          >
+          <motion.div className="flex flex-wrap gap-4 justify-center">
             <Button 
               size="lg" 
               className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-[var(--shadow-glow)] transition-[var(--transition-smooth)]"
