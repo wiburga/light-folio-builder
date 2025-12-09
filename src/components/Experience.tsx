@@ -1,74 +1,120 @@
 import { Card } from "@/components/ui/card";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import { Briefcase, CheckCircle } from "lucide-react";
 
 const Experience = () => {
+  const containerRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const lineHeight = useTransform(scrollYProgress, [0.2, 0.8], ["0%", "100%"]);
+
   const experiences = [
     {
       company: "Prowessec – Servicios a la Comunidad en Proyectos Sociales",
       position: "Administrador y Soporte Web",
       period: "Quito, Ecuador | 2022",
       description:
-        "Administré y di soporte a tiendas virtuales aplicando conocimientos en desarrollo web. Implementé estrategias de promoción en línea que mejoraron la visibilidad de los proyectos. Creé y mantuve páginas web con enfoque en usabilidad y accesibilidad. Lideré y capacité a nuevos participantes en el uso de herramientas digitales.",
+        "Administré y di soporte a tiendas virtuales aplicando conocimientos en desarrollo web. Implementé estrategias de promoción en línea que mejoraron la visibilidad de los proyectos.",
       achievements: [
         "Gestión y soporte de tiendas virtuales",
         "Estrategias digitales para mejorar visibilidad",
         "Diseño web enfocado en usabilidad y accesibilidad",
-        "Capacitación de nuevos participantes en herramientas digitales"
-      ]
-    }
+        "Capacitación de nuevos participantes en herramientas digitales",
+      ],
+    },
   ];
 
   return (
-    <section id="experience" className="py-20 px-4">
-      <div className="container mx-auto max-w-4xl">
-        <motion.h2 
-          className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12"
+    <section ref={containerRef} id="experience" className="py-24 px-4 relative overflow-hidden">
+      {/* Background glow */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-[180px] opacity-5 bg-primary" />
+      </div>
+
+      <div className="container mx-auto max-w-4xl relative z-10">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
         >
-          Experiencia
-        </motion.h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-glow-subtle">
+            Experiencia
+          </h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto" />
+        </motion.div>
+
         <div className="relative">
-          {/* Línea del tiempo - hidden on mobile */}
-          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-primary/30 transform md:-translate-x-1/2 hidden sm:block" />
+          {/* Animated timeline line */}
+          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-border md:-translate-x-1/2">
+            <motion.div
+              className="w-full bg-gradient-to-b from-primary via-primary to-transparent"
+              style={{ height: lineHeight }}
+            />
+          </div>
 
           <div className="space-y-12">
             {experiences.map((exp, index) => (
               <motion.div
                 key={index}
-                className={`relative ${
-                  index % 2 === 0 ? "md:pr-1/2 md:text-right" : "md:pl-1/2 md:ml-auto"
-                }`}
-                initial={{ opacity: 0, y: 20 }}
+                className="relative pl-16 md:pl-0"
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.2, duration: 0.5 }}
+                transition={{ delay: index * 0.2, duration: 0.6 }}
               >
-                {/* Punto de la línea - hidden on mobile */}
-                <div className="absolute left-0 md:left-1/2 w-4 h-4 bg-primary rounded-full transform -translate-x-1/2 md:translate-x-0 top-6 hidden sm:block" />
+                {/* Timeline dot */}
+                <motion.div
+                  className="absolute left-4 md:left-1/2 w-5 h-5 rounded-full bg-background border-2 border-primary shadow-[0_0_15px_hsla(221,83%,53%,0.5)] md:-translate-x-1/2 top-8"
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3, type: "spring", stiffness: 300 }}
+                />
 
-                <Card className="sm:ml-8 md:ml-0 p-4 sm:p-6 bg-card border-border shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-glow)] transition-[var(--transition-smooth)]">
-                  <div className="space-y-3">
-                    <h3 className="text-xl sm:text-2xl font-semibold text-primary">
+                <Card className="glass hover:shadow-[var(--shadow-glow)] transition-all duration-500 overflow-hidden group md:max-w-[calc(50%-2rem)] md:ml-auto">
+                  <div className="p-6 relative">
+                    {/* Icon */}
+                    <motion.div
+                      className="mb-4 p-3 rounded-xl bg-primary/10 w-fit group-hover:bg-primary/20 transition-colors duration-300"
+                      whileHover={{ rotate: 5, scale: 1.05 }}
+                    >
+                      <Briefcase className="w-6 h-6 text-primary" />
+                    </motion.div>
+
+                    <h3 className="text-xl sm:text-2xl font-semibold text-primary mb-2">
                       {exp.position}
                     </h3>
-                    <p className="text-base sm:text-lg text-foreground font-medium">
+                    <p className="text-base sm:text-lg text-foreground font-medium mb-1">
                       {exp.company}
                     </p>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-muted-foreground mb-4">
                       {exp.period}
                     </p>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-5">
                       {exp.description}
                     </p>
-                    <ul className="space-y-2 mt-4">
+
+                    <ul className="space-y-3">
                       {exp.achievements.map((achievement, i) => (
-                        <li key={i} className="flex items-start gap-2 text-muted-foreground">
-                          <span className="text-primary text-lg">•</span>
-                          <span>{achievement}</span>
-                        </li>
+                        <motion.li
+                          key={i}
+                          className="flex items-start gap-3 text-muted-foreground group/item"
+                          initial={{ opacity: 0, x: -20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: 0.4 + i * 0.1, duration: 0.4 }}
+                        >
+                          <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                          <span className="text-sm group-hover/item:text-foreground transition-colors duration-300">
+                            {achievement}
+                          </span>
+                        </motion.li>
                       ))}
                     </ul>
                   </div>

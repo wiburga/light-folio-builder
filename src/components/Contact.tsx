@@ -1,108 +1,138 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Mail, Linkedin, Github } from "lucide-react";
-import { motion } from "framer-motion";
+import { Mail, Linkedin, Github, Phone, Send } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 const Contact = () => {
+  const containerRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [-30, 30]);
+
   const socialLinks = [
     {
       name: "Email",
       icon: Mail,
       url: "mailto:isaias.burga99@gmail.com",
-      label: "isaias.burga99@gmail.com"
+      label: "isaias.burga99@gmail.com",
+      color: "group-hover:text-red-400",
     },
     {
       name: "Teléfono",
-      icon: Mail,
+      icon: Phone,
       url: "tel:+593962923294",
-      label: "0962923294"
+      label: "0962923294",
+      color: "group-hover:text-green-400",
     },
     {
       name: "LinkedIn",
       icon: Linkedin,
       url: "https://www.linkedin.com/in/isaias-burga-ba8170189",
-      label: "/in/isaiasburga"
+      label: "/in/isaiasburga",
+      color: "group-hover:text-blue-400",
     },
     {
       name: "GitHub",
       icon: Github,
       url: "https://github.com/wiburga",
-      label: "@wiburga"
-    }
+      label: "@wiburga",
+      color: "group-hover:text-purple-400",
+    },
   ];
 
   return (
-    <section id="contact" className="py-20 px-4">
-      <div className="container mx-auto max-w-4xl">
-        <motion.h2 
-          className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4 sm:mb-6"
+    <section ref={containerRef} id="contact" className="py-24 px-4 relative overflow-hidden">
+      {/* Background decoration */}
+      <motion.div
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-[200px] opacity-10 pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, hsl(221 83% 53%) 0%, transparent 60%)",
+          y,
+        }}
+      />
+
+      <div className="container mx-auto max-w-4xl relative z-10">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
         >
-          Conectemos
-        </motion.h2>
-        <motion.p 
-          className="text-center text-muted-foreground text-sm sm:text-base md:text-lg mb-8 sm:mb-12 max-w-2xl mx-auto px-2"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1, duration: 0.5 }}
-        >
-          Siempre estoy interesado en conocer nuevos proyectos y oportunidades de aprendizaje. Si tienes alguna pregunta o simplemente quieres saludar, ¡no dudes en contactarme!
-        </motion.p>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-8 sm:mb-12">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-glow-subtle">
+            Conectemos
+          </h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mb-6" />
+          <p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
+            Siempre estoy interesado en conocer nuevos proyectos y oportunidades
+            de aprendizaje. Si tienes alguna pregunta o simplemente quieres
+            saludar, ¡no dudes en contactarme!
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-12">
           {socialLinks.map((link, index) => (
             <motion.div
               key={link.name}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
             >
-              <Card
-                className="p-4 sm:p-6 bg-card border-border shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-glow)] transition-[var(--transition-smooth)]"
+              <a
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block group"
               >
-                <a
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-4 group"
-                >
-                  <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-[var(--transition-smooth)]">
-                    <link.icon className="w-6 h-6 text-primary" />
+                <Card className="p-5 sm:p-6 glass hover:shadow-[var(--shadow-glow)] transition-all duration-500 hover:-translate-y-1">
+                  <div className="flex items-center gap-4">
+                    <motion.div
+                      className="p-3 rounded-xl bg-primary/10 group-hover:bg-primary/20 transition-all duration-300"
+                      whileHover={{ rotate: 10, scale: 1.1 }}
+                    >
+                      <link.icon
+                        className={`w-6 h-6 text-primary transition-colors duration-300 ${link.color}`}
+                      />
+                    </motion.div>
+                    <div>
+                      <p className="font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
+                        {link.name}
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        {link.label}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-semibold text-foreground group-hover:text-primary transition-[var(--transition-smooth)]">
-                      {link.name}
-                    </p>
-                    <p className="text-sm text-muted-foreground">{link.label}</p>
-                  </div>
-                </a>
-              </Card>
+                </Card>
+              </a>
             </motion.div>
           ))}
         </div>
 
-        <motion.div 
+        <motion.div
           className="text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4, duration: 0.5 }}
         >
-          <Button
-            size="lg"
-            className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-[var(--shadow-glow)] transition-[var(--transition-smooth)]"
-            asChild
-          >
-            <a href="mailto:isaias.burga99@gmail.com">
-              <Mail className="w-5 h-5 mr-2" />
-              Envíame un Email
-            </a>
-          </Button>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Button
+              size="lg"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-[var(--shadow-glow)] transition-all duration-300 text-base px-8 py-6"
+              asChild
+            >
+              <a href="mailto:isaias.burga99@gmail.com">
+                <Send className="w-5 h-5 mr-2" />
+                Envíame un Email
+              </a>
+            </Button>
+          </motion.div>
         </motion.div>
       </div>
     </section>
