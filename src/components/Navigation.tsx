@@ -1,18 +1,10 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Sparkles, SparklesIcon } from "lucide-react";
-import { use3DGraphics } from "@/contexts/Graphics3DContext";
-import Logo3D from "@/components/3d/Logo3D";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Menu, X } from "lucide-react";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { is3DEnabled, toggle3D } = use3DGraphics();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,9 +43,7 @@ const Navigation = () => {
             onClick={() => scrollToSection("home")}
             className="hover:opacity-80 transition-opacity flex items-center gap-2"
           >
-            <div className="w-12 h-12">
-              {is3DEnabled ? <Logo3D /> : <span className="text-2xl font-bold text-primary">IB</span>}
-            </div>
+            <span className="text-2xl font-bold text-primary">IB</span>
           </button>
 
           {/* Desktop Navigation */}
@@ -68,42 +58,10 @@ const Navigation = () => {
                 {item.label}
               </Button>
             ))}
-            
-            {/* 3D Toggle Button */}
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={toggle3D}
-                  className={`ml-2 ${is3DEnabled ? "text-primary" : "text-muted-foreground"}`}
-                >
-                  {is3DEnabled ? <Sparkles className="h-5 w-5" /> : <SparklesIcon className="h-5 w-5 opacity-50" />}
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>{is3DEnabled ? "Desactivar efectos 3D" : "Activar efectos 3D"}</p>
-              </TooltipContent>
-            </Tooltip>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="flex items-center gap-2 md:hidden">
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={toggle3D}
-                  className={is3DEnabled ? "text-primary" : "text-muted-foreground"}
-                >
-                  {is3DEnabled ? <Sparkles className="h-5 w-5" /> : <SparklesIcon className="h-5 w-5 opacity-50" />}
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>{is3DEnabled ? "Desactivar 3D" : "Activar 3D"}</p>
-              </TooltipContent>
-            </Tooltip>
             <Button
               variant="ghost"
               size="icon"
