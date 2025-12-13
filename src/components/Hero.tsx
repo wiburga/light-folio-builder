@@ -2,10 +2,15 @@ import { Button } from "@/components/ui/button";
 import { ArrowDown, Code, Sparkles } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import TypewriterText from "./TypewriterText";
 
 const Hero = () => {
   const containerRef = useRef<HTMLElement>(null);
+  const [showSubtitle, setShowSubtitle] = useState(false);
+  const [showDescription, setShowDescription] = useState(false);
+  const [showButtons, setShowButtons] = useState(false);
+  
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
@@ -18,7 +23,6 @@ const Hero = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
   const rotate = useTransform(scrollYProgress, [0, 1], [0, 5]);
-  const blur = useTransform(scrollYProgress, [0, 0.5], [0, 4]);
 
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -175,30 +179,40 @@ const Hero = () => {
           </motion.div>
 
           <motion.h1
-            className="text-4xl sm:text-6xl md:text-8xl font-bold mb-4 sm:mb-6 text-glow"
+            className="text-4xl sm:text-6xl md:text-8xl font-bold mb-4 sm:mb-6 text-glow min-h-[1.2em]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
           >
             <span className="bg-gradient-to-r from-primary via-primary-foreground to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_3s_ease_infinite]">
-              Isaias Burga
+              <TypewriterText 
+                text="Isaias Burga" 
+                delay={800} 
+                speed={80}
+                onComplete={() => setShowSubtitle(true)}
+              />
             </span>
           </motion.h1>
 
           <motion.div
             className="mb-6 sm:mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: showSubtitle ? 1 : 0 }}
+            transition={{ duration: 0.3 }}
           >
-            <p className="text-xl sm:text-3xl md:text-4xl text-foreground/90 font-medium tracking-wide">
-              Desarrollador de Software
+            <p className="text-xl sm:text-3xl md:text-4xl text-foreground/90 font-medium tracking-wide min-h-[1.2em]">
+              <TypewriterText 
+                text="Desarrollador de Software" 
+                delay={0} 
+                speed={40}
+                onComplete={() => setShowDescription(true)}
+              />
             </p>
             <motion.p
               className="text-sm sm:text-base md:text-lg text-muted-foreground mt-3 italic"
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
+              animate={{ opacity: showDescription ? 1 : 0 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
             >
               Autodidacta{" "}
               <span className="text-primary mx-2 text-glow-subtle">+</span>{" "}
@@ -209,8 +223,11 @@ const Hero = () => {
           <motion.p
             className="text-sm sm:text-base md:text-lg text-muted-foreground mb-10 sm:mb-14 max-w-2xl mx-auto px-2 leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
+            animate={{ opacity: showDescription ? 1 : 0, y: showDescription ? 0 : 20 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+            onAnimationComplete={() => {
+              if (showDescription) setShowButtons(true);
+            }}
           >
             Apasionado por la tecnología y el desarrollo de software. Creando
             soluciones digitales innovadoras y transformando ideas en proyectos
@@ -220,8 +237,8 @@ const Hero = () => {
           <motion.div
             className="flex flex-wrap gap-4 justify-center"
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
+            animate={{ opacity: showButtons ? 1 : 0, y: showButtons ? 0 : 20 }}
+            transition={{ duration: 0.8 }}
           >
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button
