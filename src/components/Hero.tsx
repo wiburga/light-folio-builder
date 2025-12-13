@@ -11,9 +11,14 @@ const Hero = () => {
     offset: ["start start", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  // Multiple parallax layers with different speeds
+  const yBg = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const yMid = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const yFront = useTransform(scrollYProgress, [0, 1], ["0%", "70%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
+  const rotate = useTransform(scrollYProgress, [0, 1], [0, 5]);
+  const blur = useTransform(scrollYProgress, [0, 0.5], [0, 4]);
 
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -25,10 +30,10 @@ const Hero = () => {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Parallax Background */}
+      {/* Deep Background Layer - Slowest */}
       <motion.div
         className="absolute inset-0 z-0"
-        style={{ y }}
+        style={{ y: yBg, scale: 1.1 }}
       >
         <div
           className="absolute inset-0"
@@ -39,12 +44,68 @@ const Hero = () => {
             filter: "brightness(0.3)",
           }}
         />
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background" />
       </motion.div>
 
-      {/* Animated orbs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Mid Layer - Floating geometric shapes */}
+      <motion.div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{ y: yMid }}
+      >
+        {/* Large diamond shape */}
+        <motion.div
+          className="absolute w-64 h-64 border border-primary/10"
+          style={{
+            top: "15%",
+            left: "10%",
+            transform: "rotate(45deg)",
+            rotate,
+          }}
+        />
+        {/* Circle ring */}
+        <motion.div
+          className="absolute w-48 h-48 rounded-full border-2 border-primary/5"
+          style={{
+            top: "60%",
+            right: "15%",
+          }}
+          animate={{ rotate: 360 }}
+          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+        />
+        {/* Small squares */}
+        <motion.div
+          className="absolute w-12 h-12 border border-primary/20"
+          style={{ top: "30%", right: "25%", rotate }}
+        />
+        <motion.div
+          className="absolute w-8 h-8 bg-primary/5"
+          style={{ bottom: "35%", left: "20%" }}
+          animate={{ rotate: [0, 90, 180, 270, 360] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        />
+      </motion.div>
+
+      {/* Front Layer - Grid overlay */}
+      <motion.div
+        className="absolute inset-0 z-[2] pointer-events-none opacity-[0.03]"
+        style={{ y: yFront }}
+      >
+        <div 
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `
+              linear-gradient(hsl(var(--primary)) 1px, transparent 1px),
+              linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)
+            `,
+            backgroundSize: "100px 100px",
+          }}
+        />
+      </motion.div>
+
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 z-[3] bg-gradient-to-b from-background/60 via-background/80 to-background" />
+
+      {/* Animated orbs - adjusted z-index */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-[4]">
         <motion.div
           className="absolute w-[500px] h-[500px] rounded-full blur-[120px] opacity-20"
           style={{
