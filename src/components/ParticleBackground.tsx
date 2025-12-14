@@ -1,5 +1,4 @@
-import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useCallback, memo } from "react";
 
 interface Particle {
   x: number;
@@ -10,160 +9,255 @@ interface Particle {
   opacity: number;
 }
 
-const ParticleBackground = () => {
+// Configuration - adjust for performance vs quality
+const CONFIG = {
+  particleCount: {
+    mobile: 25,
+    tablet: 40,
+    desktop: 60,
+  },
+  connectionDistance: 120,
+  mouseConnectionDistance: 150,
+  targetFPS: 30,
+  mouseThrottleMs: 16,
+};
+
+const ParticleBackground = memo(() => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
-  const mouseRef = useRef({ x: 0, y: 0 });
+  const mouseRef = useRef({ x: -1000, y: -1000 });
   const animationRef = useRef<number>();
+  const lastFrameTime = useRef(0);
+  const frameInterval = 1000 / CONFIG.targetFPS;
+  const isVisibleRef = useRef(true);
+
+  const getParticleCount = useCallback(() => {
+    const width = window.innerWidth;
+    if (width < 768) return CONFIG.particleCount.mobile;
+    if (width < 1024) return CONFIG.particleCount.tablet;
+    return CONFIG.particleCount.desktop;
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
+    // Use device pixel ratio for retina, but cap at 2 for performance
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      canvas.style.width = `${rect.width}px`;
+      canvas.style.height = `${rect.height}px`;
+      ctx.scale(dpr, dpr);
     };
 
     const createParticles = () => {
-      const particleCount = Math.min(80, Math.floor(window.innerWidth / 20));
+      const count = getParticleCount();
+      const { width, height } = canvas.getBoundingClientRect();
       particlesRef.current = [];
-      
-      for (let i = 0; i < particleCount; i++) {
+
+      for (let i = 0; i < count; i++) {
         particlesRef.current.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: (Math.random() - 0.5) * 0.5,
-          size: Math.random() * 2 + 1,
-          opacity: Math.random() * 0.5 + 0.2,
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: (Math.random() - 0.5) * 0.3,
+          size: Math.random() * 1.5 + 0.5,
+          opacity: Math.random() * 0.4 + 0.1,
         });
       }
     };
 
-    const drawParticle = (particle: Particle) => {
-      ctx.beginPath();
-      ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-      ctx.fillStyle = `hsla(221, 83%, 53%, ${particle.opacity})`;
-      ctx.fill();
+    const drawParticles = () => {
+      const particles = particlesRef.current;
+      
+      // Batch all particle draws
+      ctx.fillStyle = "hsla(221, 83%, 53%, 0.6)";
+      particles.forEach((p) => {
+        ctx.globalAlpha = p.opacity;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      ctx.globalAlpha = 1;
     };
 
     const drawConnections = () => {
       const particles = particlesRef.current;
-      const connectionDistance = 150;
+      const connectionDist = CONFIG.connectionDistance;
+      const connectionDistSq = connectionDist * connectionDist;
+      const mouseDistSq = CONFIG.mouseConnectionDistance * CONFIG.mouseConnectionDistance;
+      
+      ctx.lineWidth = 0.5;
 
+      // Use spatial optimization - only check nearby particles
       for (let i = 0; i < particles.length; i++) {
+        const p1 = particles[i];
+        
+        // Particle to particle connections (skip distant pairs)
         for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
+          const p2 = particles[j];
+          const dx = p1.x - p2.x;
+          const dy = p1.y - p2.y;
+          const distSq = dx * dx + dy * dy;
 
-          if (distance < connectionDistance) {
-            const opacity = (1 - distance / connectionDistance) * 0.2;
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
+          if (distSq < connectionDistSq) {
+            const dist = Math.sqrt(distSq);
+            const opacity = (1 - dist / connectionDist) * 0.15;
             ctx.strokeStyle = `hsla(221, 83%, 53%, ${opacity})`;
-            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
             ctx.stroke();
           }
         }
 
-        // Connect to mouse
-        const dx = particles[i].x - mouseRef.current.x;
-        const dy = particles[i].y - mouseRef.current.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
+        // Mouse connection
+        const mx = mouseRef.current.x;
+        const my = mouseRef.current.y;
+        if (mx > 0) {
+          const dx = p1.x - mx;
+          const dy = p1.y - my;
+          const distSq = dx * dx + dy * dy;
 
-        if (distance < 200) {
-          const opacity = (1 - distance / 200) * 0.4;
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(mouseRef.current.x, mouseRef.current.y);
-          ctx.strokeStyle = `hsla(221, 83%, 63%, ${opacity})`;
-          ctx.lineWidth = 1;
-          ctx.stroke();
+          if (distSq < mouseDistSq) {
+            const dist = Math.sqrt(distSq);
+            const opacity = (1 - dist / CONFIG.mouseConnectionDistance) * 0.3;
+            ctx.strokeStyle = `hsla(221, 83%, 63%, ${opacity})`;
+            ctx.lineWidth = 0.8;
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(mx, my);
+            ctx.stroke();
+            ctx.lineWidth = 0.5;
+          }
         }
       }
     };
 
     const updateParticles = () => {
+      const { width, height } = canvas.getBoundingClientRect();
       const particles = particlesRef.current;
+      const mx = mouseRef.current.x;
+      const my = mouseRef.current.y;
 
-      particles.forEach((particle) => {
-        particle.x += particle.vx;
-        particle.y += particle.vy;
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
 
-        // Bounce off edges
-        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
-        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
+        // Wrap around edges instead of bounce (smoother)
+        if (p.x < 0) p.x = width;
+        if (p.x > width) p.x = 0;
+        if (p.y < 0) p.y = height;
+        if (p.y > height) p.y = 0;
 
-        // Mouse repulsion
-        const dx = particle.x - mouseRef.current.x;
-        const dy = particle.y - mouseRef.current.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
+        // Mouse repulsion (only if mouse is on screen)
+        if (mx > 0) {
+          const dx = p.x - mx;
+          const dy = p.y - my;
+          const distSq = dx * dx + dy * dy;
+          const repulsionRadius = 80;
 
-        if (distance < 100) {
-          const force = (100 - distance) / 100;
-          particle.vx += (dx / distance) * force * 0.2;
-          particle.vy += (dy / distance) * force * 0.2;
+          if (distSq < repulsionRadius * repulsionRadius) {
+            const dist = Math.sqrt(distSq);
+            const force = (repulsionRadius - dist) / repulsionRadius * 0.1;
+            p.vx += (dx / dist) * force;
+            p.vy += (dy / dist) * force;
+          }
         }
+
+        // Velocity damping
+        p.vx *= 0.99;
+        p.vy *= 0.99;
 
         // Limit velocity
-        const speed = Math.sqrt(particle.vx * particle.vx + particle.vy * particle.vy);
-        if (speed > 2) {
-          particle.vx = (particle.vx / speed) * 2;
-          particle.vy = (particle.vy / speed) * 2;
+        const speedSq = p.vx * p.vx + p.vy * p.vy;
+        if (speedSq > 4) {
+          const speed = Math.sqrt(speedSq);
+          p.vx = (p.vx / speed) * 2;
+          p.vy = (p.vy / speed) * 2;
         }
-      });
+      }
     };
 
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const animate = (currentTime: number) => {
+      animationRef.current = requestAnimationFrame(animate);
+
+      // Skip frame if not visible or not enough time passed
+      if (!isVisibleRef.current) return;
       
+      const deltaTime = currentTime - lastFrameTime.current;
+      if (deltaTime < frameInterval) return;
+      
+      lastFrameTime.current = currentTime - (deltaTime % frameInterval);
+
+      const { width, height } = canvas.getBoundingClientRect();
+      ctx.clearRect(0, 0, width, height);
+
       updateParticles();
       drawConnections();
-      particlesRef.current.forEach(drawParticle);
-      
-      animationRef.current = requestAnimationFrame(animate);
+      drawParticles();
     };
 
+    // Throttled mouse handler
+    let mouseThrottleTimer: number | null = null;
     const handleMouseMove = (e: MouseEvent) => {
-      mouseRef.current = { x: e.clientX, y: e.clientY };
+      if (mouseThrottleTimer) return;
+      mouseThrottleTimer = window.setTimeout(() => {
+        mouseRef.current = { x: e.clientX, y: e.clientY };
+        mouseThrottleTimer = null;
+      }, CONFIG.mouseThrottleMs);
     };
 
+    // Visibility API - pause when tab is hidden
+    const handleVisibilityChange = () => {
+      isVisibleRef.current = !document.hidden;
+    };
+
+    // Debounced resize handler
+    let resizeTimer: number | null = null;
     const handleResize = () => {
-      resizeCanvas();
-      createParticles();
+      if (resizeTimer) clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => {
+        resizeCanvas();
+        createParticles();
+      }, 200);
     };
 
     resizeCanvas();
     createParticles();
-    animate();
+    animationRef.current = requestAnimationFrame(animate);
 
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    window.addEventListener("resize", handleResize, { passive: true });
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+      if (mouseThrottleTimer) clearTimeout(mouseThrottleTimer);
+      if (resizeTimer) clearTimeout(resizeTimer);
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("resize", handleResize);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, []);
+  }, [getParticleCount]);
 
   return (
-    <motion.canvas
+    <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 2 }}
+      className="fixed inset-0 pointer-events-none z-0 opacity-100"
+      style={{ willChange: "auto" }}
     />
   );
-};
+});
+
+ParticleBackground.displayName = "ParticleBackground";
 
 export default ParticleBackground;
