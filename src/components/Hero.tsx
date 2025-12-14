@@ -50,41 +50,32 @@ const Hero = () => {
         />
       </motion.div>
 
-      {/* Mid Layer - Floating geometric shapes */}
+      {/* Mid Layer - Simplified geometric shapes (CSS only, no JS animations) */}
       <motion.div
-        className="absolute inset-0 z-[1] pointer-events-none"
+        className="absolute inset-0 z-[1] pointer-events-none hidden md:block"
         style={{ y: yMid }}
       >
-        {/* Large diamond shape */}
-        <motion.div
+        {/* Large diamond shape - static */}
+        <div
           className="absolute w-64 h-64 border border-primary/10"
           style={{
             top: "15%",
             left: "10%",
             transform: "rotate(45deg)",
-            rotate,
           }}
         />
-        {/* Circle ring */}
-        <motion.div
-          className="absolute w-48 h-48 rounded-full border-2 border-primary/5"
+        {/* Circle ring - CSS animation */}
+        <div
+          className="absolute w-48 h-48 rounded-full border-2 border-primary/5 animate-[spin_40s_linear_infinite]"
           style={{
             top: "60%",
             right: "15%",
           }}
-          animate={{ rotate: 360 }}
-          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
         />
-        {/* Small squares */}
-        <motion.div
+        {/* Small square - static */}
+        <div
           className="absolute w-12 h-12 border border-primary/20"
-          style={{ top: "30%", right: "25%", rotate }}
-        />
-        <motion.div
-          className="absolute w-8 h-8 bg-primary/5"
-          style={{ bottom: "35%", left: "20%" }}
-          animate={{ rotate: [0, 90, 180, 270, 360] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          style={{ top: "30%", right: "25%" }}
         />
       </motion.div>
 
@@ -108,40 +99,24 @@ const Hero = () => {
       {/* Gradient overlay */}
       <div className="absolute inset-0 z-[3] bg-gradient-to-b from-background/60 via-background/80 to-background" />
 
-      {/* Animated orbs - adjusted z-index */}
+      {/* Animated orbs - CSS animations only (GPU accelerated) */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-[4]">
-        <motion.div
-          className="absolute w-[500px] h-[500px] rounded-full blur-[120px] opacity-20"
+        <div
+          className="absolute w-[500px] h-[500px] rounded-full blur-[120px] opacity-20 animate-[float-orb-1_20s_ease-in-out_infinite]"
           style={{
             background: "radial-gradient(circle, hsl(221 83% 53%) 0%, transparent 70%)",
             top: "10%",
             left: "20%",
-          }}
-          animate={{
-            x: [0, 100, 0],
-            y: [0, 50, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut",
+            willChange: "transform",
           }}
         />
-        <motion.div
-          className="absolute w-[400px] h-[400px] rounded-full blur-[100px] opacity-15"
+        <div
+          className="absolute w-[400px] h-[400px] rounded-full blur-[100px] opacity-15 animate-[float-orb-2_15s_ease-in-out_infinite]"
           style={{
             background: "radial-gradient(circle, hsl(221 83% 63%) 0%, transparent 70%)",
             bottom: "20%",
             right: "10%",
-          }}
-          animate={{
-            x: [0, -80, 0],
-            y: [0, -60, 0],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "easeInOut",
+            willChange: "transform",
           }}
         />
       </div>
