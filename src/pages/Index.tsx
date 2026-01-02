@@ -27,31 +27,31 @@ const Index = () => {
       <Navigation />
       <Hero />
       
-      <LazySection rootMargin="200px">
+      <LazySection>
         <Suspense fallback={<SectionLoader />}>
           <About />
         </Suspense>
       </LazySection>
       
-      <LazySection rootMargin="200px">
+      <LazySection>
         <Suspense fallback={<SectionLoader />}>
           <Skills />
         </Suspense>
       </LazySection>
       
-      <LazySection rootMargin="200px">
+      <LazySection>
         <Suspense fallback={<SectionLoader />}>
           <Experience />
         </Suspense>
       </LazySection>
       
-      <LazySection rootMargin="200px">
+      <LazySection>
         <Suspense fallback={<SectionLoader />}>
           <Projects />
         </Suspense>
       </LazySection>
       
-      <LazySection rootMargin="200px">
+      <LazySection>
         <Suspense fallback={<SectionLoader />}>
           <Contact />
         </Suspense>

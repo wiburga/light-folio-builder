@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState, ReactNode, memo } from "react";
+import { useScrollVelocity, getPreloadMargin } from "@/hooks/useScrollVelocity";
 
 interface LazySectionProps {
   children: ReactNode;
   className?: string;
-  rootMargin?: string;
   threshold?: number;
   fallback?: ReactNode;
 }
@@ -11,33 +11,45 @@ interface LazySectionProps {
 const LazySection = memo(({
   children,
   className = "",
-  rootMargin = "100px",
   threshold = 0.1,
   fallback = null
 }: LazySectionProps) => {
-  const [isVisible, setIsVisible] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const { velocity, direction } = useScrollVelocity();
 
   useEffect(() => {
     const element = ref.current;
-    if (!element) return;
+    if (!element || hasLoaded) return;
 
-    const observer = new IntersectionObserver(
+    // Calculate margin based on scroll velocity and direction
+    const baseMargin = getPreloadMargin(velocity);
+    const margin = direction === "down" 
+      ? `0px 0px ${baseMargin} 0px`  // Preload below
+      : direction === "up"
+      ? `${baseMargin} 0px 0px 0px`  // Preload above
+      : baseMargin;                   // Preload all directions
+
+    // Disconnect previous observer if margin changed
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+    }
+
+    observerRef.current = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true);
           setHasLoaded(true);
-          observer.unobserve(element);
+          observerRef.current?.disconnect();
         }
       },
-      { rootMargin, threshold }
+      { rootMargin: margin, threshold }
     );
 
-    observer.observe(element);
+    observerRef.current.observe(element);
 
-    return () => observer.disconnect();
-  }, [rootMargin, threshold]);
+    return () => observerRef.current?.disconnect();
+  }, [velocity, direction, threshold, hasLoaded]);
 
   return (
     <div ref={ref} className={className}>
