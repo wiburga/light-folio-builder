@@ -5,6 +5,13 @@ import Footer from "@/components/Footer";
 import ParticleBackground from "@/components/ParticleBackground";
 import CustomCursor from "@/components/CustomCursor";
 import LazySection from "@/components/LazySection";
+import {
+  AboutSkeleton,
+  SkillsSkeleton,
+  ExperienceSkeleton,
+  ProjectsSkeleton,
+  ContactSkeleton
+} from "@/components/skeletons/SectionSkeletons";
 
 // Lazy load heavy sections
 const About = lazy(() => import("@/components/About"));
@@ -12,12 +19,6 @@ const Skills = lazy(() => import("@/components/Skills"));
 const Experience = lazy(() => import("@/components/Experience"));
 const Projects = lazy(() => import("@/components/Projects"));
 const Contact = lazy(() => import("@/components/Contact"));
-
-const SectionLoader = () => (
-  <div className="min-h-[50vh] flex items-center justify-center">
-    <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
-  </div>
-);
 
 const Index = () => {
   return (
@@ -27,32 +28,32 @@ const Index = () => {
       <Navigation />
       <Hero />
       
-      <LazySection>
-        <Suspense fallback={<SectionLoader />}>
+      <LazySection fallback={<AboutSkeleton />}>
+        <Suspense fallback={<AboutSkeleton />}>
           <About />
         </Suspense>
       </LazySection>
       
-      <LazySection>
-        <Suspense fallback={<SectionLoader />}>
+      <LazySection fallback={<SkillsSkeleton />}>
+        <Suspense fallback={<SkillsSkeleton />}>
           <Skills />
         </Suspense>
       </LazySection>
       
-      <LazySection>
-        <Suspense fallback={<SectionLoader />}>
+      <LazySection fallback={<ExperienceSkeleton />}>
+        <Suspense fallback={<ExperienceSkeleton />}>
           <Experience />
         </Suspense>
       </LazySection>
       
-      <LazySection>
-        <Suspense fallback={<SectionLoader />}>
+      <LazySection fallback={<ProjectsSkeleton />}>
+        <Suspense fallback={<ProjectsSkeleton />}>
           <Projects />
         </Suspense>
       </LazySection>
       
-      <LazySection>
-        <Suspense fallback={<SectionLoader />}>
+      <LazySection fallback={<ContactSkeleton />}>
+        <Suspense fallback={<ContactSkeleton />}>
           <Contact />
         </Suspense>
       </LazySection>
