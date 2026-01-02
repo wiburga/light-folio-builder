@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useCallback } from "react";
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import Footer from "@/components/Footer";
@@ -11,6 +11,7 @@ import {
   ProjectsSkeleton,
   ContactSkeleton
 } from "@/components/skeletons/SectionSkeletons";
+import { projectImages, prefetchImages } from "@/lib/image-prefetch";
 
 // Lazy load heavy sections
 const About = lazy(() => import("@/components/About"));
@@ -20,6 +21,10 @@ const Projects = lazy(() => import("@/components/Projects"));
 const Contact = lazy(() => import("@/components/Contact"));
 
 const Index = () => {
+  const handleProjectsApproaching = useCallback(() => {
+    prefetchImages(projectImages);
+  }, []);
+
   return (
     <div className="min-h-screen bg-background animated-gradient noise-overlay">
       <ParticleBackground />
@@ -44,7 +49,11 @@ const Index = () => {
         </Suspense>
       </LazySection>
       
-      <LazySection fallback={<ProjectsSkeleton />}>
+      <LazySection 
+        fallback={<ProjectsSkeleton />}
+        onApproaching={handleProjectsApproaching}
+        approachMargin="600px"
+      >
         <Suspense fallback={<ProjectsSkeleton />}>
           <Projects />
         </Suspense>
