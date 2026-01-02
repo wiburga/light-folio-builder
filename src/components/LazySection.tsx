@@ -6,32 +6,58 @@ interface LazySectionProps {
   className?: string;
   threshold?: number;
   fallback?: ReactNode;
+  onApproaching?: () => void;
+  approachMargin?: string;
 }
 
 const LazySection = memo(({
   children,
   className = "",
   threshold = 0.1,
-  fallback = null
+  fallback = null,
+  onApproaching,
+  approachMargin = "500px"
 }: LazySectionProps) => {
   const [hasLoaded, setHasLoaded] = useState(false);
+  const [hasTriggeredApproach, setHasTriggeredApproach] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const approachObserverRef = useRef<IntersectionObserver | null>(null);
   const { velocity, direction } = useScrollVelocity();
 
+  // Approach observer for prefetching
+  useEffect(() => {
+    const element = ref.current;
+    if (!element || !onApproaching || hasTriggeredApproach) return;
+
+    approachObserverRef.current = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          onApproaching();
+          setHasTriggeredApproach(true);
+          approachObserverRef.current?.disconnect();
+        }
+      },
+      { rootMargin: approachMargin, threshold: 0 }
+    );
+
+    approachObserverRef.current.observe(element);
+
+    return () => approachObserverRef.current?.disconnect();
+  }, [onApproaching, approachMargin, hasTriggeredApproach]);
+
+  // Main visibility observer
   useEffect(() => {
     const element = ref.current;
     if (!element || hasLoaded) return;
 
-    // Calculate margin based on scroll velocity and direction
     const baseMargin = getPreloadMargin(velocity);
     const margin = direction === "down" 
-      ? `0px 0px ${baseMargin} 0px`  // Preload below
+      ? `0px 0px ${baseMargin} 0px`
       : direction === "up"
-      ? `${baseMargin} 0px 0px 0px`  // Preload above
-      : baseMargin;                   // Preload all directions
+      ? `${baseMargin} 0px 0px 0px`
+      : baseMargin;
 
-    // Disconnect previous observer if margin changed
     if (observerRef.current) {
       observerRef.current.disconnect();
     }
