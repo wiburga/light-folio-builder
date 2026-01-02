@@ -3,7 +3,6 @@ import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import Footer from "@/components/Footer";
 import ParticleBackground from "@/components/ParticleBackground";
-import CustomCursor from "@/components/CustomCursor";
 import LazySection from "@/components/LazySection";
 import {
   AboutSkeleton,
@@ -23,7 +22,6 @@ const Contact = lazy(() => import("@/components/Contact"));
 const Index = () => {
   return (
     <div className="min-h-screen bg-background animated-gradient noise-overlay">
-      <CustomCursor />
       <ParticleBackground />
       <Navigation />
       <Hero />
