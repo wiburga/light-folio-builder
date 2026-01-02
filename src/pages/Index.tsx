@@ -1,13 +1,23 @@
+import { lazy, Suspense } from "react";
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Skills from "@/components/Skills";
-import Experience from "@/components/Experience";
-import Projects from "@/components/Projects";
-import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import ParticleBackground from "@/components/ParticleBackground";
 import CustomCursor from "@/components/CustomCursor";
+import LazySection from "@/components/LazySection";
+
+// Lazy load heavy sections
+const About = lazy(() => import("@/components/About"));
+const Skills = lazy(() => import("@/components/Skills"));
+const Experience = lazy(() => import("@/components/Experience"));
+const Projects = lazy(() => import("@/components/Projects"));
+const Contact = lazy(() => import("@/components/Contact"));
+
+const SectionLoader = () => (
+  <div className="min-h-[50vh] flex items-center justify-center">
+    <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
+  </div>
+);
 
 const Index = () => {
   return (
@@ -16,11 +26,37 @@ const Index = () => {
       <ParticleBackground />
       <Navigation />
       <Hero />
-      <About />
-      <Skills />
-      <Experience />
-      <Projects />
-      <Contact />
+      
+      <LazySection rootMargin="200px">
+        <Suspense fallback={<SectionLoader />}>
+          <About />
+        </Suspense>
+      </LazySection>
+      
+      <LazySection rootMargin="200px">
+        <Suspense fallback={<SectionLoader />}>
+          <Skills />
+        </Suspense>
+      </LazySection>
+      
+      <LazySection rootMargin="200px">
+        <Suspense fallback={<SectionLoader />}>
+          <Experience />
+        </Suspense>
+      </LazySection>
+      
+      <LazySection rootMargin="200px">
+        <Suspense fallback={<SectionLoader />}>
+          <Projects />
+        </Suspense>
+      </LazySection>
+      
+      <LazySection rootMargin="200px">
+        <Suspense fallback={<SectionLoader />}>
+          <Contact />
+        </Suspense>
+      </LazySection>
+      
       <Footer />
     </div>
   );
