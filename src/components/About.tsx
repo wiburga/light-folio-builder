@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { User, GraduationCap, Code, Rocket } from "lucide-react";
 
-const About = () => {
+const About = (): JSX.Element => {
   const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
