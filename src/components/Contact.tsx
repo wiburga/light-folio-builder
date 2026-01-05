@@ -56,8 +56,8 @@ const Contact = () => {
     {
       name: "TikTok",
       icon: TikTokIcon,
-      url: "https://www.tiktok.com/@isaiasDev",
-      label: "@isaiasDev",
+      url: "https://www.tiktok.com/@isaiasDev1",
+      label: "@isaiasDev1",
       color: "group-hover:text-pink-400",
     },
   ];
