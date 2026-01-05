@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Briefcase, CheckCircle } from "lucide-react";
+import FloatingParticles from "./FloatingParticles";
 
 const Experience = () => {
   const containerRef = useRef<HTMLElement>(null);
@@ -39,6 +40,9 @@ const Experience = () => {
           y,
         }}
       />
+      
+      {/* Floating particles */}
+      <FloatingParticles count={12} color="hsl(160 70% 45%)" />
 
       <div className="container mx-auto max-w-4xl relative z-10">
         <motion.div
