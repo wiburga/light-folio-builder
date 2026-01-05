@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ExternalLink, Github, Layers } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import FloatingParticles from "./FloatingParticles";
 
 const Projects = () => {
   const containerRef = useRef<HTMLElement>(null);
@@ -56,6 +57,9 @@ const Projects = () => {
           y,
         }}
       />
+      
+      {/* Floating particles */}
+      <FloatingParticles count={18} color="hsl(280 70% 50%)" />
 
       <div className="container mx-auto max-w-6xl relative z-10">
         <motion.div
