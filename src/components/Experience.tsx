@@ -11,6 +11,7 @@ const Experience = () => {
   });
 
   const lineHeight = useTransform(scrollYProgress, [0.2, 0.8], ["0%", "100%"]);
+  const y = useTransform(scrollYProgress, [0, 1], [-40, 40]);
 
   const experiences = [
     {
@@ -31,9 +32,13 @@ const Experience = () => {
   return (
     <section ref={containerRef} id="experience" className="py-24 px-4 relative overflow-hidden">
       {/* Background glow */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-[180px] opacity-5 bg-primary" />
-      </div>
+      <motion.div
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full blur-[160px] opacity-15 pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, hsl(160 70% 45%) 0%, hsl(221 83% 53%) 50%, transparent 70%)",
+          y,
+        }}
+      />
 
       <div className="container mx-auto max-w-4xl relative z-10">
         <motion.div

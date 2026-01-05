@@ -42,9 +42,9 @@ const Skills = () => {
     >
       {/* Background decoration */}
       <motion.div
-        className="absolute left-0 top-1/3 w-[500px] h-[500px] rounded-full blur-[130px] opacity-10 pointer-events-none"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-[180px] opacity-15 pointer-events-none"
         style={{
-          background: "radial-gradient(circle, hsl(221 83% 53%) 0%, transparent 70%)",
+          background: "radial-gradient(circle, hsl(221 83% 53%) 0%, hsl(280 70% 50%) 50%, transparent 70%)",
           y,
         }}
       />
