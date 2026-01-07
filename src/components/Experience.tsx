@@ -1,5 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Briefcase, CheckCircle } from "lucide-react";
+import AnimatedSection from "./AnimatedSection";
+import { motion } from "framer-motion";
 
 const Experience = () => {
   const experiences = [
@@ -19,51 +21,66 @@ const Experience = () => {
   ];
 
   return (
-    <section id="experience" className="py-24 px-4">
+    <section id="experience" className="py-24 px-4 relative">
       <div className="container mx-auto max-w-4xl">
-        <div className="text-center mb-16">
+        <AnimatedSection className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
             Experiencia
           </h2>
           <div className="w-24 h-1 bg-primary mx-auto" />
-        </div>
+        </AnimatedSection>
 
         <div className="relative">
           <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-border md:-translate-x-1/2" />
 
           <div className="space-y-12">
             {experiences.map((exp, index) => (
-              <div key={index} className="relative pl-16 md:pl-0">
-                <div className="absolute left-4 md:left-1/2 w-5 h-5 rounded-full bg-background border-2 border-primary md:-translate-x-1/2 top-8" />
+              <AnimatedSection key={index} delay={0.1}>
+                <div className="relative pl-16 md:pl-0">
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3, type: "spring" }}
+                    className="absolute left-4 md:left-1/2 w-5 h-5 rounded-full bg-background border-2 border-primary md:-translate-x-1/2 top-8 shadow-[0_0_10px_hsl(var(--primary)/0.5)]"
+                  />
 
-                <Card className="md:max-w-[calc(50%-2rem)] md:ml-auto p-6">
-                  <div className="mb-4 p-3 rounded-xl bg-primary/10 w-fit">
-                    <Briefcase className="w-6 h-6 text-primary" />
-                  </div>
+                  <Card className="md:max-w-[calc(50%-2rem)] md:ml-auto p-6 backdrop-blur-sm bg-card/80 border-primary/10 hover:border-primary/30 transition-all hover:shadow-[0_0_30px_hsl(var(--primary)/0.1)]">
+                    <div className="mb-4 p-3 rounded-xl bg-primary/10 w-fit">
+                      <Briefcase className="w-6 h-6 text-primary" />
+                    </div>
 
-                  <h3 className="text-xl sm:text-2xl font-semibold text-primary mb-2">
-                    {exp.position}
-                  </h3>
-                  <p className="text-base sm:text-lg text-foreground font-medium mb-1">
-                    {exp.company}
-                  </p>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    {exp.period}
-                  </p>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-5">
-                    {exp.description}
-                  </p>
+                    <h3 className="text-xl sm:text-2xl font-semibold text-primary mb-2">
+                      {exp.position}
+                    </h3>
+                    <p className="text-base sm:text-lg text-foreground font-medium mb-1">
+                      {exp.company}
+                    </p>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      {exp.period}
+                    </p>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-5">
+                      {exp.description}
+                    </p>
 
-                  <ul className="space-y-3">
-                    {exp.achievements.map((achievement, i) => (
-                      <li key={i} className="flex items-start gap-3 text-muted-foreground">
-                        <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                        <span className="text-sm">{achievement}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </Card>
-              </div>
+                    <ul className="space-y-3">
+                      {exp.achievements.map((achievement, i) => (
+                        <motion.li
+                          key={i}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: 0.4 + i * 0.1 }}
+                          className="flex items-start gap-3 text-muted-foreground"
+                        >
+                          <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                          <span className="text-sm">{achievement}</span>
+                        </motion.li>
+                      ))}
+                    </ul>
+                  </Card>
+                </div>
+              </AnimatedSection>
             ))}
           </div>
         </div>
