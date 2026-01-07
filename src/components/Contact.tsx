@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Mail, Linkedin, Github, Phone, Send } from "lucide-react";
+import AnimatedSection from "./AnimatedSection";
+import { motion } from "framer-motion";
 
 const TikTokIcon = ({ className }: { className?: string }) => (
   <svg
@@ -48,9 +50,9 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="py-24 px-4">
+    <section id="contact" className="py-24 px-4 relative">
       <div className="container mx-auto max-w-4xl">
-        <div className="text-center mb-16">
+        <AnimatedSection className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
             Conectemos
           </h2>
@@ -60,40 +62,43 @@ const Contact = () => {
             de aprendizaje. Si tienes alguna pregunta o simplemente quieres
             saludar, ¡no dudes en contactarme!
           </p>
-        </div>
+        </AnimatedSection>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-12">
-          {socialLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block"
-            >
-              <Card className="p-5 sm:p-6 hover:border-primary/50 transition-colors">
-                <div className="flex items-center gap-4">
-                  <div className="p-3 rounded-xl bg-primary/10">
-                    <link.icon className="w-6 h-6 text-primary" />
+          {socialLinks.map((link, index) => (
+            <AnimatedSection key={link.name} delay={index * 0.05}>
+              <motion.a
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 400 }}
+              >
+                <Card className="p-5 sm:p-6 backdrop-blur-sm bg-card/80 border-primary/10 hover:border-primary/50 transition-all hover:shadow-[0_0_20px_hsl(var(--primary)/0.15)]">
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 rounded-xl bg-primary/10">
+                      <link.icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-foreground">
+                        {link.name}
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        {link.label}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-semibold text-foreground">
-                      {link.name}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      {link.label}
-                    </p>
-                  </div>
-                </div>
-              </Card>
-            </a>
+                </Card>
+              </motion.a>
+            </AnimatedSection>
           ))}
         </div>
 
-        <div className="text-center">
+        <AnimatedSection delay={0.3} className="text-center">
           <Button
             size="lg"
-            className="bg-primary hover:bg-primary/90 text-primary-foreground text-base px-8 py-6"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground text-base px-8 py-6 shadow-[0_0_20px_hsl(var(--primary)/0.3)] hover:shadow-[0_0_30px_hsl(var(--primary)/0.5)] transition-shadow"
             asChild
           >
             <a href="mailto:isaias.burga99@gmail.com">
@@ -101,7 +106,7 @@ const Contact = () => {
               Envíame un Email
             </a>
           </Button>
-        </div>
+        </AnimatedSection>
       </div>
     </section>
   );

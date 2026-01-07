@@ -1,6 +1,8 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Github, Layers } from "lucide-react";
+import AnimatedSection from "./AnimatedSection";
+import { motion } from "framer-motion";
 
 const Projects = () => {
   const projects = [
@@ -34,9 +36,9 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="py-24 px-4">
+    <section id="projects" className="py-24 px-4 relative">
       <div className="container mx-auto max-w-6xl">
-        <div className="text-center mb-16">
+        <AnimatedSection className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
             Proyectos
           </h2>
@@ -44,68 +46,75 @@ const Projects = () => {
           <p className="text-muted-foreground text-sm sm:text-base max-w-2xl mx-auto">
             Algunos de los proyectos en los que he trabajado durante mi formación
           </p>
-        </div>
+        </AnimatedSection>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {projects.map((project, index) => (
-            <Card key={index} className="h-full overflow-hidden">
-              <div className="relative h-40 overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
-              </div>
+            <AnimatedSection key={index} delay={index * 0.1}>
+              <motion.div
+                whileHover={{ y: -5 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <Card className="h-full overflow-hidden backdrop-blur-sm bg-card/80 border-primary/10 hover:border-primary/30 transition-all hover:shadow-[0_0_30px_hsl(var(--primary)/0.15)]">
+                  <div className="relative h-40 overflow-hidden">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
+                  </div>
 
-              <div className="p-4">
-                <div className="mb-3 p-2 rounded-lg bg-primary/10 w-fit">
-                  <Layers className="w-5 h-5 text-primary" />
-                </div>
+                  <div className="p-4">
+                    <div className="mb-3 p-2 rounded-lg bg-primary/10 w-fit">
+                      <Layers className="w-5 h-5 text-primary" />
+                    </div>
 
-                <h3 className="text-xl font-semibold mb-2 text-foreground">
-                  {project.title}
-                </h3>
+                    <h3 className="text-xl font-semibold mb-2 text-foreground">
+                      {project.title}
+                    </h3>
 
-                <p className="text-muted-foreground text-sm leading-relaxed mb-5">
-                  {project.description}
-                </p>
+                    <p className="text-muted-foreground text-sm leading-relaxed mb-5">
+                      {project.description}
+                    </p>
 
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.technologies.map((tech, i) => (
-                    <span
-                      key={i}
-                      className="px-3 py-1 text-xs bg-secondary/50 text-secondary-foreground rounded-full"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {project.technologies.map((tech, i) => (
+                        <span
+                          key={i}
+                          className="px-3 py-1 text-xs bg-secondary/50 text-secondary-foreground rounded-full"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
 
-                <div className="flex gap-3">
-                  <Button asChild size="sm" variant="default">
-                    <a
-                      href={project.demoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      Demo
-                    </a>
-                  </Button>
-                  <Button asChild size="sm" variant="outline">
-                    <a
-                      href={project.repoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Github className="w-4 h-4 mr-2" />
-                      Código
-                    </a>
-                  </Button>
-                </div>
-              </div>
-            </Card>
+                    <div className="flex gap-3">
+                      <Button asChild size="sm" variant="default" className="shadow-[0_0_15px_hsl(var(--primary)/0.2)]">
+                        <a
+                          href={project.demoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <ExternalLink className="w-4 h-4 mr-2" />
+                          Demo
+                        </a>
+                      </Button>
+                      <Button asChild size="sm" variant="outline" className="backdrop-blur-sm">
+                        <a
+                          href={project.repoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Github className="w-4 h-4 mr-2" />
+                          Código
+                        </a>
+                      </Button>
+                    </div>
+                  </div>
+                </Card>
+              </motion.div>
+            </AnimatedSection>
           ))}
         </div>
       </div>
