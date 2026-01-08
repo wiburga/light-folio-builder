@@ -1,21 +1,39 @@
 import { Button } from "@/components/ui/button";
 import { ArrowDown } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 const Hero = () => {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"]
+  });
+
+  // Parallax layers with different speeds
+  const yBg = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const yMid = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const yContent = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <section
+      ref={ref}
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-muted/20" />
+      {/* Background parallax layer */}
+      <motion.div 
+        style={{ y: yBg }}
+        className="absolute inset-0 bg-gradient-to-b from-background via-background to-muted/20" 
+      />
       
-      {/* Animated gradient orbs */}
-      <div className="absolute inset-0 overflow-hidden">
+      {/* Mid parallax layer - animated gradient orbs */}
+      <motion.div style={{ y: yMid }} className="absolute inset-0 overflow-hidden">
         <motion.div
           className="absolute -top-40 -right-40 w-80 h-80 bg-primary/20 rounded-full blur-3xl"
           animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
@@ -26,9 +44,29 @@ const Hero = () => {
           animate={{ scale: [1.2, 1, 1.2], opacity: [0.2, 0.4, 0.2] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
-      </div>
+        {/* Floating geometric shapes */}
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-20 h-20 border border-primary/20 rotate-45"
+          animate={{ rotate: [45, 90, 45] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        />
+        <motion.div
+          className="absolute top-1/3 right-1/4 w-16 h-16 border border-primary/15 rounded-full"
+          animate={{ scale: [1, 1.3, 1] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-1/3 left-1/3 w-12 h-12 bg-primary/10 rounded-lg blur-sm"
+          animate={{ y: [-10, 10, -10], rotate: [0, 180, 360] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </motion.div>
 
-      <div className="container mx-auto px-4 z-10 relative">
+      {/* Content parallax layer */}
+      <motion.div 
+        style={{ y: yContent, opacity }} 
+        className="container mx-auto px-4 z-10 relative"
+      >
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -94,7 +132,7 @@ const Hero = () => {
             </Button>
           </motion.div>
         </motion.div>
-      </div>
+      </motion.div>
 
       <motion.button
         initial={{ opacity: 0 }}
