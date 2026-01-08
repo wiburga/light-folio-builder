@@ -77,11 +77,29 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-4xl sm:text-6xl md:text-8xl font-bold mb-4 sm:mb-6"
+            className="text-4xl sm:text-6xl md:text-8xl font-black mb-4 sm:mb-6 tracking-tight"
           >
-            <span className="text-primary drop-shadow-[0_0_30px_hsl(var(--primary)/0.5)]">
-              Isaias Burga
-            </span>
+            <motion.span 
+              className="relative inline-block"
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              {/* Glow layer */}
+              <span className="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-primary bg-clip-text text-transparent blur-2xl opacity-50">
+                Isaias Burga
+              </span>
+              {/* Main text with gradient */}
+              <span className="relative bg-gradient-to-br from-primary via-primary/90 to-primary/70 bg-clip-text text-transparent drop-shadow-[0_0_40px_hsl(var(--primary)/0.4)]">
+                Isaias Burga
+              </span>
+              {/* Decorative underline */}
+              <motion.span 
+                className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full"
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+              />
+            </motion.span>
           </motion.h1>
 
           <motion.div
