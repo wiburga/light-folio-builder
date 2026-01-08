@@ -2,9 +2,20 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Monitor, Server, Wrench } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 const Skills = () => {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+
+  const yFloat1 = useTransform(scrollYProgress, [0, 1], [80, -80]);
+  const yFloat2 = useTransform(scrollYProgress, [0, 1], [-60, 60]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1.2, 0.8]);
+
   const skillCategories = [
     {
       title: "Frontend",
@@ -24,8 +35,26 @@ const Skills = () => {
   ];
 
   return (
-    <section id="skills" className="py-24 px-4 relative">
-      <div className="container mx-auto max-w-5xl">
+    <section ref={ref} id="skills" className="py-24 px-4 relative overflow-hidden">
+      {/* Parallax decorative elements */}
+      <motion.div
+        style={{ y: yFloat1 }}
+        className="absolute top-32 left-10 w-20 h-20 border-2 border-primary/10 rounded-full"
+      />
+      <motion.div
+        style={{ y: yFloat2, scale }}
+        className="absolute bottom-32 right-10 w-32 h-32 bg-primary/5 rounded-full blur-2xl"
+      />
+      <motion.div
+        style={{ y: yFloat1 }}
+        className="absolute top-1/3 left-1/4 w-6 h-6 bg-primary/10 rounded-sm rotate-45"
+      />
+      <motion.div
+        style={{ y: yFloat2 }}
+        className="absolute bottom-1/4 right-1/3 w-12 h-12 border border-primary/15 rounded-lg"
+      />
+
+      <div className="container mx-auto max-w-5xl relative z-10">
         <AnimatedSection className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
             Habilidades y Tecnologías
