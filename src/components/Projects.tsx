@@ -2,9 +2,20 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Github, Layers } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 const Projects = () => {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+
+  const yFloat1 = useTransform(scrollYProgress, [0, 1], [120, -120]);
+  const yFloat2 = useTransform(scrollYProgress, [0, 1], [-80, 80]);
+  const rotate = useTransform(scrollYProgress, [0, 1], [0, 360]);
+
   const projects = [
     {
       title: "Dashboard KPI",
@@ -36,8 +47,26 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="py-24 px-4 relative">
-      <div className="container mx-auto max-w-6xl">
+    <section ref={ref} id="projects" className="py-24 px-4 relative overflow-hidden">
+      {/* Parallax decorative elements */}
+      <motion.div
+        style={{ y: yFloat1, rotate }}
+        className="absolute top-20 left-10 w-16 h-16 border-2 border-primary/10 rounded-lg"
+      />
+      <motion.div
+        style={{ y: yFloat2 }}
+        className="absolute bottom-40 right-16 w-24 h-24 bg-primary/5 rounded-full blur-xl"
+      />
+      <motion.div
+        style={{ y: yFloat1 }}
+        className="absolute top-1/2 right-10 w-10 h-10 border border-primary/15 rotate-12"
+      />
+      <motion.div
+        style={{ y: yFloat2, rotate }}
+        className="absolute bottom-20 left-1/4 w-8 h-8 bg-primary/10 rounded-full"
+      />
+
+      <div className="container mx-auto max-w-6xl relative z-10">
         <AnimatedSection className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
             Proyectos

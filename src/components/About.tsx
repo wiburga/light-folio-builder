@@ -1,9 +1,20 @@
 import { Card } from "@/components/ui/card";
 import { User, GraduationCap, Code, Rocket } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 const About = () => {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+
+  const yFloat1 = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const yFloat2 = useTransform(scrollYProgress, [0, 1], [-50, 50]);
+  const rotate = useTransform(scrollYProgress, [0, 1], [0, 180]);
+
   const quickFacts = [
     {
       icon: GraduationCap,
@@ -24,8 +35,22 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-24 px-4 relative">
-      <div className="container mx-auto max-w-5xl">
+    <section ref={ref} id="about" className="py-24 px-4 relative overflow-hidden">
+      {/* Parallax decorative elements */}
+      <motion.div
+        style={{ y: yFloat1, rotate }}
+        className="absolute top-20 right-10 w-24 h-24 border border-primary/10 rounded-lg opacity-50"
+      />
+      <motion.div
+        style={{ y: yFloat2 }}
+        className="absolute bottom-20 left-10 w-16 h-16 bg-primary/5 rounded-full blur-xl"
+      />
+      <motion.div
+        style={{ y: yFloat1 }}
+        className="absolute top-1/2 right-1/4 w-8 h-8 border border-primary/15 rotate-45"
+      />
+
+      <div className="container mx-auto max-w-5xl relative z-10">
         <AnimatedSection className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
             Sobre Mí
