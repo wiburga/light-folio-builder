@@ -131,23 +131,52 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
-            className="flex flex-wrap gap-4 justify-center"
+            className="flex flex-wrap gap-6 justify-center"
           >
-            <Button
-              size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground text-base px-8 py-6 shadow-[0_0_20px_hsl(var(--primary)/0.3)] hover:shadow-[0_0_30px_hsl(var(--primary)/0.5)] transition-shadow"
-              onClick={() => scrollToSection("projects")}
+            <motion.div
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
-              Ver Mi Trabajo
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-primary/50 text-foreground hover:bg-primary/10 hover:border-primary text-base px-8 py-6 backdrop-blur-sm"
-              onClick={() => scrollToSection("contact")}
+              <Button
+                size="lg"
+                className="relative overflow-hidden bg-gradient-to-r from-primary via-primary/90 to-primary/80 text-primary-foreground text-base font-semibold px-10 py-7 rounded-xl shadow-[0_0_30px_hsl(var(--primary)/0.4),0_10px_40px_-10px_hsl(var(--primary)/0.5)] hover:shadow-[0_0_50px_hsl(var(--primary)/0.6),0_20px_50px_-10px_hsl(var(--primary)/0.6)] transition-all duration-300 border border-primary/30 group"
+                onClick={() => scrollToSection("projects")}
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  Ver Mi Trabajo
+                  <motion.span
+                    animate={{ x: [0, 4, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    →
+                  </motion.span>
+                </span>
+                {/* Animated shimmer effect */}
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                {/* Inner glow */}
+                <span className="absolute inset-0 bg-gradient-to-t from-transparent to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </Button>
+            </motion.div>
+            
+            <motion.div
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
-              Contáctame
-            </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="relative overflow-hidden border-2 border-primary/40 text-foreground text-base font-semibold px-10 py-7 rounded-xl backdrop-blur-md bg-primary/5 hover:bg-primary/15 hover:border-primary/70 shadow-[0_0_20px_hsl(var(--primary)/0.15),inset_0_0_20px_hsl(var(--primary)/0.05)] hover:shadow-[0_0_40px_hsl(var(--primary)/0.3),inset_0_0_30px_hsl(var(--primary)/0.1)] transition-all duration-300 group"
+                onClick={() => scrollToSection("contact")}
+              >
+                <span className="relative z-10 bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text group-hover:from-primary group-hover:to-primary/80 transition-all duration-300">
+                  Contáctame
+                </span>
+                {/* Animated border glow */}
+                <span className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-primary/0 via-primary/10 to-primary/0" />
+              </Button>
+            </motion.div>
           </motion.div>
         </motion.div>
       </motion.div>
