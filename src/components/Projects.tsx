@@ -81,25 +81,44 @@ const Projects = () => {
           {projects.map((project, index) => (
             <AnimatedSection key={index} delay={index * 0.1}>
               <motion.div
-                whileHover={{ y: -5 }}
-                transition={{ type: "spring", stiffness: 300 }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className="h-full group/card"
               >
-                <Card className="h-full overflow-hidden backdrop-blur-sm bg-card/80 border-primary/10 hover:border-primary/30 transition-all hover:shadow-[0_0_30px_hsl(var(--primary)/0.15)]">
-                  <div className="relative h-40 overflow-hidden">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
+                <Card className="relative h-full overflow-hidden backdrop-blur-xl bg-gradient-to-br from-card/90 via-card/70 to-card/50 border border-primary/10 transition-all duration-500 group-hover/card:border-primary/40 group-hover/card:shadow-[0_0_60px_hsl(var(--primary)/0.25),0_20px_60px_-20px_hsl(var(--primary)/0.3)] shadow-[0_8px_32px_hsl(0_0%_0%/0.4)]">
+                  {/* Animated gradient border */}
+                  <div className="absolute inset-0 rounded-lg opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 pointer-events-none">
+                    <div className="absolute inset-[-1px] bg-gradient-to-r from-primary/50 via-primary/20 to-primary/50 rounded-lg blur-sm" />
+                  </div>
+                  
+                  {/* Inner glow effect */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500" />
+                  
+                  {/* Shimmer effect */}
+                  <div className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 pointer-events-none overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover/card:translate-x-full transition-transform duration-1000" />
                   </div>
 
-                  <div className="p-4">
-                    <div className="mb-3 p-2 rounded-lg bg-primary/10 w-fit">
+                  <div className="relative h-44 overflow-hidden">
+                    <motion.img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-all duration-700 group-hover/card:scale-110 group-hover/card:brightness-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
+                    
+                    {/* Floating icon badge */}
+                    <motion.div 
+                      className="absolute top-4 right-4 p-2.5 rounded-xl bg-primary/20 backdrop-blur-md border border-primary/30 shadow-[0_0_20px_hsl(var(--primary)/0.3)]"
+                      whileHover={{ rotate: 12, scale: 1.1 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
                       <Layers className="w-5 h-5 text-primary" />
-                    </div>
+                    </motion.div>
+                  </div>
 
-                    <h3 className="text-xl font-semibold mb-2 text-foreground">
+                  <div className="relative p-5">
+                    <h3 className="text-xl font-bold mb-2 text-foreground group-hover/card:text-primary transition-colors duration-300">
                       {project.title}
                     </h3>
 
@@ -109,36 +128,52 @@ const Projects = () => {
 
                     <div className="flex flex-wrap gap-2 mb-6">
                       {project.technologies.map((tech, i) => (
-                        <span
+                        <motion.span
                           key={i}
-                          className="px-3 py-1 text-xs bg-secondary/50 text-secondary-foreground rounded-full"
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: i * 0.1 }}
+                          className="px-3 py-1.5 text-xs font-medium bg-primary/10 text-primary/90 rounded-full border border-primary/20 backdrop-blur-sm hover:bg-primary/20 hover:border-primary/40 transition-all duration-300"
                         >
                           {tech}
-                        </span>
+                        </motion.span>
                       ))}
                     </div>
 
                     <div className="flex gap-3">
-                      <Button asChild size="sm" variant="default" className="shadow-[0_0_15px_hsl(var(--primary)/0.2)]">
-                        <a
-                          href={project.demoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <ExternalLink className="w-4 h-4 mr-2" />
-                          Demo
-                        </a>
-                      </Button>
-                      <Button asChild size="sm" variant="outline" className="backdrop-blur-sm">
-                        <a
-                          href={project.repoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Github className="w-4 h-4 mr-2" />
-                          Código
-                        </a>
-                      </Button>
+                      <motion.div
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="flex-1"
+                      >
+                        <Button asChild size="sm" className="w-full relative overflow-hidden bg-gradient-to-r from-primary to-primary/80 shadow-[0_0_20px_hsl(var(--primary)/0.3)] hover:shadow-[0_0_30px_hsl(var(--primary)/0.5)] transition-all duration-300 group/btn">
+                          <a
+                            href={project.demoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <ExternalLink className="w-4 h-4 mr-2 group-hover/btn:rotate-12 transition-transform duration-300" />
+                            Demo
+                            <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-500" />
+                          </a>
+                        </Button>
+                      </motion.div>
+                      <motion.div
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="flex-1"
+                      >
+                        <Button asChild size="sm" variant="outline" className="w-full backdrop-blur-md bg-card/50 border-primary/30 hover:border-primary/60 hover:bg-primary/10 transition-all duration-300 group/btn">
+                          <a
+                            href={project.repoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <Github className="w-4 h-4 mr-2 group-hover/btn:rotate-12 transition-transform duration-300" />
+                            Código
+                          </a>
+                        </Button>
+                      </motion.div>
                     </div>
                   </div>
                 </Card>
