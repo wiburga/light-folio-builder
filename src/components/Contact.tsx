@@ -71,17 +71,34 @@ const Contact = () => {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block"
-                whileHover={{ scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 400 }}
+                className="block group/card"
+                whileHover={{ y: -6, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                <Card className="p-5 sm:p-6 backdrop-blur-sm bg-card/80 border-primary/10 hover:border-primary/50 transition-all hover:shadow-[0_0_20px_hsl(var(--primary)/0.15)]">
-                  <div className="flex items-center gap-4">
-                    <div className="p-3 rounded-xl bg-primary/10">
+                <Card className="relative p-5 sm:p-6 overflow-hidden backdrop-blur-xl bg-gradient-to-br from-card/90 via-card/70 to-card/50 border border-primary/10 transition-all duration-500 group-hover/card:border-primary/40 group-hover/card:shadow-[0_0_40px_hsl(var(--primary)/0.2),0_10px_40px_-15px_hsl(var(--primary)/0.25)] shadow-[0_8px_32px_hsl(0_0%_0%/0.4)]">
+                  {/* Animated gradient border */}
+                  <div className="absolute inset-0 rounded-lg opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 pointer-events-none">
+                    <div className="absolute inset-[-1px] bg-gradient-to-r from-primary/40 via-primary/20 to-primary/40 rounded-lg blur-sm" />
+                  </div>
+                  
+                  {/* Inner glow effect */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500" />
+                  
+                  {/* Shimmer effect */}
+                  <div className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 pointer-events-none overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover/card:translate-x-full transition-transform duration-1000" />
+                  </div>
+
+                  <div className="relative flex items-center gap-4">
+                    <motion.div 
+                      className="p-3 rounded-xl bg-primary/10 backdrop-blur-sm border border-primary/20 group-hover/card:bg-primary/20 group-hover/card:border-primary/40 group-hover/card:shadow-[0_0_20px_hsl(var(--primary)/0.3)] transition-all duration-300"
+                      whileHover={{ rotate: 6, scale: 1.1 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
                       <link.icon className="w-6 h-6 text-primary" />
-                    </div>
+                    </motion.div>
                     <div>
-                      <p className="font-semibold text-foreground">
+                      <p className="font-semibold text-foreground group-hover/card:text-primary transition-colors duration-300">
                         {link.name}
                       </p>
                       <p className="text-sm text-muted-foreground">
