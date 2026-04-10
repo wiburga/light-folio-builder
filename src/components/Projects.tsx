@@ -49,7 +49,7 @@ const Projects = () => {
       description:
         "Sistema de facturación rápido e intuitivo para gestión de facturas y clientes.",
       technologies: ["React", "TypeScript", "Tailwind CSS"],
-      demoUrl: "https://preview--swift-invoice.lovable.app",
+      demoUrl: "https://swift-invoice-r6i2vrb4y-wiburgas-projects.vercel.app/",
       repoUrl: "https://github.com/wiburga/swift-invoice",
       image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=400&fit=crop",
     },
