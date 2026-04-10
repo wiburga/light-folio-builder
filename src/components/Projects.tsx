@@ -18,6 +18,15 @@ const Projects = () => {
 
   const projects = [
     {
+      title: "Market Intelligence AI",
+      description:
+        "Plataforma de inteligencia de mercado potenciada por IA para análisis y toma de decisiones estratégicas.",
+      technologies: ["React", "TypeScript", "AI", "Tailwind"],
+      demoUrl: "https://preview--market-intelligence-ai-pcsbur.lovable.app",
+      repoUrl: "https://github.com/wiburga/market-intelligence-ai-pcsbur",
+      image: "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=600&h=400&fit=crop",
+    },
+    {
       title: "Dashboard KPI",
       description:
         "Dashboard interactivo con gráficos en tiempo real y filtros personalizables.",
