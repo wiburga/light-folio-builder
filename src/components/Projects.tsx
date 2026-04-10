@@ -45,13 +45,13 @@ const Projects = () => {
       image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
     },
     {
-      title: "Sistema de Citas",
+      title: "Swift Invoice",
       description:
-        "Gestión de citas médicas con autenticación y panel administrativo.",
+        "Sistema de facturación rápido e intuitivo para gestión de facturas y clientes.",
       technologies: ["React", "TypeScript", "Tailwind CSS"],
-      demoUrl: "https://preview--patient-appointments-pro.lovable.app/auth",
-      repoUrl: "https://github.com/wiburga/patient-appointments-pro",
-      image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop",
+      demoUrl: "https://preview--swift-invoice.lovable.app",
+      repoUrl: "https://github.com/wiburga/swift-invoice",
+      image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=400&fit=crop",
     },
   ];
 
