@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Github, Layers } from "lucide-react";
+import { ExternalLink, Github, Layers, Rocket } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
@@ -180,6 +180,23 @@ const Projects = () => {
               </motion.div>
             </AnimatedSection>
           ))}
+          <AnimatedSection delay={projects.length * 0.1}>
+            <Card className="h-full p-6 flex flex-col items-center justify-center text-center border-dashed border-primary/30 bg-card/60 backdrop-blur-xl hover:border-primary/50 transition-colors">
+              <div className="p-4 rounded-xl bg-primary/10 mb-4">
+                <Rocket className="w-7 h-7 text-primary" />
+              </div>
+              <h3 className="text-xl font-bold mb-2 text-foreground">Más proyectos en desarrollo</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+                Actualmente trabajo en varios proyectos nuevos. Visita mi GitHub para ver el avance
+              </p>
+              <Button asChild size="sm" variant="outline" className="border-primary/30 hover:border-primary/60 hover:bg-primary/10">
+                <a href="https://github.com/wiburga" target="_blank" rel="noopener noreferrer">
+                  <Github className="w-4 h-4 mr-2" />
+                  Ver GitHub
+                </a>
+              </Button>
+            </Card>
+          </AnimatedSection>
         </div>
       </div>
     </section>

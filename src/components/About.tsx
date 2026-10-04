@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { User, GraduationCap, Code, Rocket } from "lucide-react";
+import { Wrench, GraduationCap, Code, Cloud } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
@@ -16,22 +16,10 @@ const About = () => {
   const rotate = useTransform(scrollYProgress, [0, 1], [0, 180]);
 
   const quickFacts = [
-    {
-      icon: GraduationCap,
-      text: "Estudiante de la Universidad de las Fuerzas Armadas ESPE",
-    },
-    {
-      icon: Code,
-      text: "Desarrollador Junior recién comenzando",
-    },
-    {
-      icon: Rocket,
-      text: "Aprendiendo React, TypeScript y desarrollo web moderno",
-    },
-    {
-      icon: User,
-      text: "Motivado por aprender y crecer profesionalmente",
-    },
+    { icon: Code, text: "Desarrollador full-stack remoto y freelance desde Quito, Ecuador" },
+    { icon: Wrench, text: "Fundador de PCs Bur: soporte técnico y hardware" },
+    { icon: GraduationCap, text: "Actualmente en varios proyectos" },
+    { icon: Cloud, text: "Estudiando Azure" },
   ];
 
   return (
@@ -63,20 +51,13 @@ const About = () => {
             <Card className="h-full p-6 sm:p-8 backdrop-blur-sm bg-card/80 border-primary/10 hover:border-primary/30 transition-colors">
               <div className="space-y-4 text-muted-foreground">
                 <p className="text-sm sm:text-base md:text-lg leading-relaxed">
-                  ¡Hola! Soy Isaias Burga, estudiante de la Universidad de las
-                  Fuerzas Armadas ESPE. Estoy comenzando mi camino como
-                  desarrollador, con mucha pasión por aprender y crear
-                  soluciones tecnológicas.
+                  Soy Isaias Burga, desarrollador full-stack y técnico en sistemas en Quito, Ecuador. Trabajo de forma remota y freelance creando aplicaciones web con React, TypeScript y Supabase.
                 </p>
                 <p className="text-sm sm:text-base md:text-lg leading-relaxed">
-                  Mi viaje en la tecnología está recién comenzando, y cada día
-                  es una oportunidad para aprender algo nuevo. Me enfoco en
-                  desarrollar mis habilidades en desarrollo web y programación.
+                  Tengo mi propio negocio de soporte técnico y hardware, PCs Bur, donde ayudo a personas y pequeñas empresas a mantener sus equipos funcionando. Además, estudio Sistemas y Gestión de Data en el Instituto Superior Tecnológico ISTER.
                 </p>
                 <p className="text-sm sm:text-base md:text-lg leading-relaxed">
-                  Cuando no estoy estudiando o programando, me encanta explorar
-                  nuevas tecnologías y estar al día con las últimas tendencias
-                  en desarrollo.
+                  Me interesa especialmente la tecnología aplicada a la educación y al impacto comunitario: soluciones sencillas que mejoren la vida de las personas.
                 </p>
               </div>
             </Card>

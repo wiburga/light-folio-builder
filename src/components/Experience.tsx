@@ -6,6 +6,30 @@ import { motion } from "framer-motion";
 const Experience = () => {
   const experiences = [
     {
+      company: "PCs Bur",
+      position: "Fundador",
+      period: "Calderón, Quito · 2024 – Actualidad",
+      description:
+        "Negocio propio de soporte técnico y venta/reparación de hardware para hogares y pequeñas empresas.",
+      achievements: [
+        "Diagnóstico y reparación de equipos",
+        "Venta y armado de PCs a medida",
+        "Mantenimiento preventivo y soporte remoto",
+      ],
+    },
+    {
+      company: "Freelance · Remoto",
+      position: "Desarrollador Full-Stack",
+      period: "2024 – Actualidad",
+      description:
+        "Desarrollo de aplicaciones web con React, TypeScript y Supabase.",
+      achievements: [
+        "Dashboards, tiendas virtuales y herramientas de facturación",
+        "Bases de datos y autenticación con Supabase",
+        "Interfaces responsivas con Tailwind CSS y shadcn/ui",
+      ],
+    },
+    {
       company: "Prowessec – Servicios a la Comunidad en Proyectos Sociales",
       position: "Administrador y Soporte Web",
       period: "Quito, Ecuador | 2022",

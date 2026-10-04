@@ -1,15 +1,20 @@
-import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { useMemo } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 
 const ParticleBackground = () => {
-  const particles = Array.from({ length: 50 }, (_, i) => ({
-    id: i,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    size: Math.random() * 4 + 1,
-    duration: Math.random() * 20 + 10,
-    delay: Math.random() * 5,
-  }));
+  const reduceMotion = useReducedMotion();
+  const particles = useMemo(
+    () =>
+      Array.from({ length: 50 }, (_, i) => ({
+        id: i,
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        size: Math.random() * 4 + 1,
+        duration: Math.random() * 20 + 10,
+        delay: Math.random() * 5,
+      })),
+    []
+  );
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
@@ -23,10 +28,7 @@ const ParticleBackground = () => {
             width: particle.size,
             height: particle.size,
           }}
-          animate={{
-            y: [0, -30, 0],
-            opacity: [0.2, 0.6, 0.2],
-          }}
+          animate={reduceMotion ? undefined : { y: [0, -30, 0], opacity: [0.2, 0.6, 0.2] }}
           transition={{
             duration: particle.duration,
             repeat: Infinity,
