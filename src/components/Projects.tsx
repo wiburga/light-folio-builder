@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Github, Layers } from "lucide-react";
+import { ExternalLink, Github, Layers, Rocket } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
@@ -17,15 +17,6 @@ const Projects = () => {
   const rotate = useTransform(scrollYProgress, [0, 1], [0, 360]);
 
   const projects = [
-    {
-      title: "Market Intelligence AI",
-      description:
-        "Plataforma de inteligencia de mercado potenciada por IA para análisis y toma de decisiones estratégicas.",
-      technologies: ["React", "TypeScript", "AI", "Tailwind"],
-      demoUrl: "https://preview--market-intelligence-ai-pcsbur.lovable.app",
-      repoUrl: "https://github.com/wiburga/market-intelligence-ai-pcsbur",
-      image: "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=600&h=400&fit=crop",
-    },
     {
       title: "Dashboard KPI",
       description:
@@ -45,13 +36,13 @@ const Projects = () => {
       image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
     },
     {
-      title: "Swift Invoice",
+      title: "Sistema de Citas",
       description:
-        "Sistema de facturación rápido e intuitivo para gestión de facturas y clientes.",
+        "Gestión de citas médicas con autenticación y panel administrativo.",
       technologies: ["React", "TypeScript", "Tailwind CSS"],
-      demoUrl: "https://swift-invoice-r6i2vrb4y-wiburgas-projects.vercel.app/",
-      repoUrl: "https://github.com/wiburga/swift-invoice",
-      image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=400&fit=crop",
+      demoUrl: "https://preview--patient-appointments-pro.lovable.app/auth",
+      repoUrl: "https://github.com/wiburga/patient-appointments-pro",
+      image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop",
     },
   ];
 
@@ -82,7 +73,7 @@ const Projects = () => {
           </h2>
           <div className="w-24 h-1 bg-primary mx-auto mb-4" />
           <p className="text-muted-foreground text-sm sm:text-base max-w-2xl mx-auto">
-            Algunos de los proyectos en los que he trabajado durante mi formación
+            Algunos de los proyectos en los que he trabajado
           </p>
         </AnimatedSection>
 
@@ -189,6 +180,23 @@ const Projects = () => {
               </motion.div>
             </AnimatedSection>
           ))}
+          <AnimatedSection delay={projects.length * 0.1}>
+            <Card className="h-full p-6 flex flex-col items-center justify-center text-center border-dashed border-primary/30 bg-card/60 backdrop-blur-xl hover:border-primary/50 transition-colors">
+              <div className="p-4 rounded-xl bg-primary/10 mb-4">
+                <Rocket className="w-7 h-7 text-primary" />
+              </div>
+              <h3 className="text-xl font-bold mb-2 text-foreground">Más proyectos en desarrollo</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+                Actualmente trabajo en varios proyectos nuevos. Visita mi GitHub para ver el avance
+              </p>
+              <Button asChild size="sm" variant="outline" className="border-primary/30 hover:border-primary/60 hover:bg-primary/10">
+                <a href="https://github.com/wiburga" target="_blank" rel="noopener noreferrer">
+                  <Github className="w-4 h-4 mr-2" />
+                  Ver GitHub
+                </a>
+              </Button>
+            </Card>
+          </AnimatedSection>
         </div>
       </div>
     </section>

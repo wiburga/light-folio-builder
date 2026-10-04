@@ -20,17 +20,17 @@ const Skills = () => {
     {
       title: "Frontend",
       icon: Monitor,
-      skills: ["React", "TypeScript", "Next.js", "Tailwind CSS", "Vue.js", "HTML/CSS"],
+      skills: ["React", "TypeScript", "Tailwind CSS", "shadcn/ui", "HTML/CSS"],
     },
     {
-      title: "Backend",
+      title: "Backend y datos",
       icon: Server,
-      skills: ["Node.js", "Express", "PostgreSQL", "MongoDB", "REST APIs", "GraphQL"],
+      skills: ["Node.js", "Supabase", "PostgreSQL", "REST APIs"],
     },
     {
       title: "Herramientas",
       icon: Wrench,
-      skills: ["Git", "Docker", "AWS", "Figma", "CI/CD", "Agile/Scrum"],
+      skills: ["Git", "GitHub", "Azure (en aprendizaje)"],
     },
   ];
 
