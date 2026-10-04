@@ -35,8 +35,8 @@ const certifications: Certification[] = [
   },
   {
     icon: Cloud,
-    title: "Fundamentos de Microsoft Azure",
-    institution: "Microsoft Learn",
+    title: "Microsoft Azure",
+    institution: "Formación en la nube",
     tag: "En curso",
     inProgress: true,
   },

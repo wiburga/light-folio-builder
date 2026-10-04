@@ -8,7 +8,7 @@ const Experience = () => {
     {
       company: "PCs Bur",
       position: "Fundador",
-      period: "Calderón, Quito · 2024 – Actualidad",
+      period: "Calderón, Quito · Actualidad",
       description:
         "Negocio propio de soporte técnico y venta/reparación de hardware para hogares y pequeñas empresas.",
       achievements: [
@@ -20,7 +20,7 @@ const Experience = () => {
     {
       company: "Freelance · Remoto",
       position: "Desarrollador Full-Stack",
-      period: "2024 – Actualidad",
+      period: "Actualidad",
       description:
         "Desarrollo de aplicaciones web con React, TypeScript y Supabase.",
       achievements: [
