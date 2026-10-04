@@ -73,7 +73,7 @@ const Projects = () => {
           </h2>
           <div className="w-24 h-1 bg-primary mx-auto mb-4" />
           <p className="text-muted-foreground text-sm sm:text-base max-w-2xl mx-auto">
-            Algunos de los proyectos en los que he trabajado durante mi formación
+            Algunos de los proyectos en los que he trabajado
           </p>
         </AnimatedSection>
 

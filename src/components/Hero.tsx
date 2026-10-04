@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, Download } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
@@ -112,7 +112,7 @@ const Hero = () => {
               Desarrollador de Software
             </p>
             <p className="text-sm sm:text-base md:text-lg text-muted-foreground mt-3 italic">
-              Autodidacta <span className="text-primary mx-2">+</span> Formación Universitaria
+              Full-Stack <span className="text-primary mx-2">·</span> Soporte técnico <span className="text-primary mx-2">·</span> Datos
             </p>
           </motion.div>
 
@@ -175,6 +175,23 @@ const Hero = () => {
                 </span>
                 {/* Animated border glow */}
                 <span className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-primary/0 via-primary/10 to-primary/0" />
+              </Button>
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            >
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="border-2 border-primary/40 text-foreground text-base font-semibold px-10 py-7 rounded-xl backdrop-blur-md bg-primary/5 hover:bg-primary/15 hover:border-primary/70 transition-all duration-300"
+              >
+                <a href="/cv.pdf" download>
+                  <Download className="w-5 h-5 mr-2" />
+                  Descargar CV
+                </a>
               </Button>
             </motion.div>
           </motion.div>

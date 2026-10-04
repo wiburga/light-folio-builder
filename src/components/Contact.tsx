@@ -32,8 +32,8 @@ const Contact = () => {
     {
       name: "LinkedIn",
       icon: Linkedin,
-      url: "https://www.linkedin.com/in/isaias-burga-ba8170189",
-      label: "/in/isaiasburga",
+      url: "https://www.linkedin.com/in/isaias-burga-dev",
+      label: "/in/isaias-burga-dev",
     },
     {
       name: "GitHub",
@@ -69,8 +69,7 @@ const Contact = () => {
             <AnimatedSection key={link.name} delay={index * 0.05}>
               <motion.a
                 href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
+                {...(link.url.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                 className="block group/card"
                 whileHover={{ y: -6, scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}

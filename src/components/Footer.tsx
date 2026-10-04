@@ -21,7 +21,7 @@ const Footer = () => {
             </span>
           </p>
           <p className="text-sm">
-            © {new Date().getFullYear()} All rights reserved.
+            © {new Date().getFullYear()} Isaias Burga. Todos los derechos reservados.
           </p>
         </div>
       </div>
