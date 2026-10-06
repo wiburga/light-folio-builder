@@ -51,13 +51,13 @@ const About = () => {
             <Card className="h-full p-6 sm:p-8 backdrop-blur-sm bg-card/80 border-primary/10 hover:border-primary/30 transition-colors">
               <div className="space-y-4 text-muted-foreground">
                 <p className="text-sm sm:text-base md:text-lg leading-relaxed">
-                  Soy Isaias Burga, desarrollador full-stack y técnico en sistemas en Quito, Ecuador. Trabajo de forma remota y freelance creando aplicaciones web con React, TypeScript y Supabase.
+                  Soy Isaias Burga, desarrollador full-stack y técnico en sistemas en Quito, Ecuador. Trabajo de forma remota y freelance con React, TypeScript, Vue/Nuxt, Node.js y Supabase, además de soporte técnico e infraestructura de TI.
                 </p>
                 <p className="text-sm sm:text-base md:text-lg leading-relaxed">
-                  Tengo mi propio negocio de soporte técnico y hardware, PCs Bur, donde ayudo a personas y pequeñas empresas a mantener sus equipos funcionando. Además, estudio Sistemas y Gestión de Data en el Instituto Superior Tecnológico ISTER.
+                  Fundé PCs Bur, mi negocio de soporte técnico y hardware. Estudio Sistemas y Gestión de Data en el Instituto Superior Tecnológico ISTER y me formo en Azure.
                 </p>
                 <p className="text-sm sm:text-base md:text-lg leading-relaxed">
-                  Me interesa especialmente la tecnología aplicada a la educación y al impacto comunitario: soluciones sencillas que mejoren la vida de las personas.
+                  Participo en proyectos de impacto social y educativo (Líder Lab, REDLEAD, Embajadores Digitales) y creo contenido sobre tecnología e IA en TikTok. Me interesan la IA, los datos y la ciberseguridad.
                 </p>
               </div>
             </Card>

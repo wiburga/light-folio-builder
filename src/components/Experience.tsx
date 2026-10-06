@@ -7,14 +7,13 @@ const Experience = () => {
   const experiences = [
     {
       company: "PCs Bur",
-      position: "Fundador",
+      position: "Fundador y Técnico",
       period: "Calderón, Quito · Actualidad",
       description:
-        "Negocio propio de soporte técnico y venta/reparación de hardware para hogares y pequeñas empresas.",
+        "Negocio propio de soporte técnico y servicios de hardware para clientes.",
       achievements: [
-        "Diagnóstico y reparación de equipos",
-        "Venta y armado de PCs a medida",
-        "Mantenimiento preventivo y soporte remoto",
+        "Soporte técnico y servicios de hardware",
+        "Producción de contenido en redes sociales para el negocio",
       ],
     },
     {
@@ -22,11 +21,21 @@ const Experience = () => {
       position: "Desarrollador Full-Stack",
       period: "Actualidad",
       description:
-        "Desarrollo de aplicaciones web con React, TypeScript y Supabase.",
+        "Desarrollo de aplicaciones web propias y para clientes.",
       achievements: [
-        "Dashboards, tiendas virtuales y herramientas de facturación",
-        "Bases de datos y autenticación con Supabase",
-        "Interfaces responsivas con Tailwind CSS y shadcn/ui",
+        "React, TypeScript, Tailwind CSS y Supabase",
+        "También Vue/Nuxt 3, Node.js y Python/Flask",
+      ],
+    },
+    {
+      company: "SERINSE (agencia de marketing BTL)",
+      position: "Pasante de TI",
+      period: "Quito, Ecuador",
+      description: "Gestión de la infraestructura de TI de la agencia.",
+      achievements: [
+        "Soporte remoto con AnyDesk y Fortinet",
+        "Administración de correo corporativo y MDM",
+        "Elaboración de tableros en Power BI",
       ],
     },
     {

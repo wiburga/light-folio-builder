@@ -18,19 +18,19 @@ const Skills = () => {
 
   const skillCategories = [
     {
-      title: "Frontend",
+      title: "Desarrollo web",
       icon: Monitor,
-      skills: ["React", "TypeScript", "Tailwind CSS", "shadcn/ui", "HTML/CSS"],
+      skills: ["React", "TypeScript", "Vue.js / Nuxt 3", "Tailwind CSS", "shadcn/ui"],
     },
     {
       title: "Backend y datos",
       icon: Server,
-      skills: ["Node.js", "Supabase", "PostgreSQL", "REST APIs"],
+      skills: ["Node.js", "Python/Flask", "PostgreSQL", "SQL Server", "MongoDB", "Supabase", "Power BI"],
     },
     {
-      title: "Herramientas",
+      title: "Infraestructura y nube",
       icon: Wrench,
-      skills: ["Git", "GitHub", "Azure (en aprendizaje)"],
+      skills: ["Windows Server", "Ubuntu Server", "Kali Linux", "Fortinet", "Git / GitHub", "Azure (en formación)"],
     },
   ];
 
