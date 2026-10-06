@@ -8,7 +8,7 @@ const Experience = () => {
     {
       company: "PCs Bur",
       position: "Fundador y Técnico",
-      period: "Calderón, Quito · Actualidad",
+      period: "Calderón, Quito · 2019 – Actualidad",
       description:
         "Negocio propio de soporte técnico y servicios de hardware para clientes.",
       achievements: [
@@ -30,7 +30,7 @@ const Experience = () => {
     {
       company: "SERINSE (agencia de marketing BTL)",
       position: "Pasante de TI",
-      period: "Quito, Ecuador",
+      period: "Quito, Ecuador | Junio – Julio · 2 meses",
       description: "Gestión de la infraestructura de TI de la agencia.",
       achievements: [
         "Soporte remoto con AnyDesk y Fortinet",
