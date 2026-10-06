@@ -18,6 +18,22 @@ const Projects = () => {
 
   const projects = [
     {
+      title: "Market Intelligence AI",
+      description: "Plataforma de inteligencia de mercado con IA para PCs Bur.",
+      technologies: ["React", "TypeScript", "IA", "Tailwind"],
+      demoUrl: "https://github.com/wiburga/market-intelligence-ai-pcsbur",
+      repoUrl: "https://github.com/wiburga/market-intelligence-ai-pcsbur",
+      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop",
+    },
+    {
+      title: "REDLEAD",
+      description: "Sitio web para jóvenes latinoamericanos. Voluntariado en desarrollo y mantenimiento web.",
+      technologies: ["React", "Vite", "TanStack Router", "shadcn/ui"],
+      demoUrl: "https://redlead-latam-launch.lovable.app",
+      repoUrl: "https://github.com/wiburga",
+      image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=400&fit=crop",
+    },
+    {
       title: "Dashboard KPI",
       description:
         "Dashboard interactivo con gráficos en tiempo real y filtros personalizables.",
@@ -36,13 +52,12 @@ const Projects = () => {
       image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
     },
     {
-      title: "Sistema de Citas",
-      description:
-        "Gestión de citas médicas con autenticación y panel administrativo.",
+      title: "Swift Invoice",
+      description: "Sistema de facturación y gestión de clientes.",
       technologies: ["React", "TypeScript", "Tailwind CSS"],
-      demoUrl: "https://preview--patient-appointments-pro.lovable.app/auth",
-      repoUrl: "https://github.com/wiburga/patient-appointments-pro",
-      image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop",
+      demoUrl: "https://swift-invoice-r6i2vrb4y-wiburgas-projects.vercel.app/",
+      repoUrl: "https://github.com/wiburga/swift-invoice",
+      image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=400&fit=crop",
     },
   ];
 
